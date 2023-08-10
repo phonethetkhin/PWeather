@@ -2,10 +2,11 @@ package com.example.weatherapi.ui.ui_resource.theme
 
 import androidx.compose.ui.graphics.Color
 
-val Purple80 = Color(0xFF8EDA91)
-val PurpleGrey80 = Color(0xFF71D5CB)
-val Pink80 = Color(0xFFD57394)
+val LightGreen80 = Color(0xFFACF1AF)
+val DarkGreen80 = Color(0xFF628664)
+val Blue80 = Color(0xFF5AC0FF)
 
-val Purple40 = Color(0xFF4CAF50)
-val PurpleGrey40 = Color(0xFF009688)
-val Pink40 = Color(0xFFE91E63)
+val LightGreen = Color(0xFF9EFFC5)
+val DarkGreen = Color(0xFF5F9675)
+val Blue = Color(0xFF009DFF)
+val DarkBlue = Color(0xFF0B78BD)

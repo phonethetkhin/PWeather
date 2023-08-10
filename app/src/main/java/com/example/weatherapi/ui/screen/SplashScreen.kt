@@ -51,7 +51,7 @@ fun SplashScreenContent(
         LaunchedEffect(Unit) {
             delay(1500L)
 
-            navController.navigate(Routes.LoginScreen.route) {
+            navController.navigate(Routes.HomeScreen.route) {
                 navController.currentDestination?.let {
                     popUpTo(it.id) {
                         inclusive = true

@@ -67,7 +67,7 @@ fun LoginScreenContent(
 
             Spacer(modifier = modifier.height(10.dp))
         }
-        PWeatherUserInput(
+    /*    PWeatherUserInput(
             value = "asdfasd",
             placeholder = "SAP ID",
             onValueChange = {},
@@ -75,7 +75,7 @@ fun LoginScreenContent(
                 .height(60.dp)
                 .fillMaxWidth()
                 .padding(start = 40.dp, end = 40.dp)
-        )
+        )*/
         PWeatherButton(
             text = "Log in",
             textColor = Color.White,

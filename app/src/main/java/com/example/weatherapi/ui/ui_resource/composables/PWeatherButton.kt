@@ -25,7 +25,7 @@ fun PWeatherButton(
         onClick = buttonClick,
         modifier = modifier,
         enabled = enable,
-        shape = RoundedCornerShape(8.dp),
+        shape = RoundedCornerShape(32.dp),
         colors = buttonColor
 
     ) {
