@@ -1,7 +1,6 @@
 package com.example.weatherapi.ui.screen
 
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
@@ -10,19 +9,20 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.Text
+import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-import com.example.weatherapi.R
 import com.example.weatherapi.ui.ui_resource.composables.PWeatherButton
 import com.example.weatherapi.ui.ui_resource.composables.PWeatherUserInput
+import com.example.weatherapi.ui.ui_resource.composables.PWeatherUserInputTrailing
+import com.example.weatherapi.ui.ui_resource.theme.Blue
+import com.example.weatherapi.ui.ui_resource.theme.LightGreen
+import com.ptk.pWeather.R
 
 
 @Composable
@@ -41,66 +41,58 @@ fun LoginScreen(
 fun LoginScreenContent(
     modifier: Modifier = Modifier
 ) {
-
-    Column(
-        modifier = modifier
-            .fillMaxWidth()
-            .fillMaxHeight()
-    ) {
-
+    Surface(color = LightGreen) {
         Column(
-            modifier = modifier.weight(1F),
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.spacedBy(8.dp)
-        ) {
-            Spacer(modifier = modifier.height(100.dp))
-            Image(
-                painterResource(R.drawable.ic_launcher_background),
-                "",
-                contentScale = ContentScale.FillBounds,
-                modifier = modifier
-                    .height(50.dp)
-                    .width(150.dp)
-            )
-            Text("Material Tracking System", fontSize = 16.sp)
-            Text("RFID Tagging", fontSize = 16.sp)
-
-            Spacer(modifier = modifier.height(10.dp))
-        }
-    /*    PWeatherUserInput(
-            value = "asdfasd",
-            placeholder = "SAP ID",
-            onValueChange = {},
             modifier = modifier
-                .height(60.dp)
                 .fillMaxWidth()
-                .padding(start = 40.dp, end = 40.dp)
-        )*/
-        PWeatherButton(
-            text = "Log in",
-            textColor = Color.White,
-            buttonColor = ButtonDefaults.buttonColors(Color.Red),
-            buttonClick = {
-            }, modifier = modifier
-                .fillMaxWidth()
-                .padding(top = 8.dp, start = 40.dp, end = 40.dp)
-        )
-    }
-    Column(
-        modifier = modifier
-            .fillMaxWidth()
-            .padding(bottom = 16.dp),
-        verticalArrangement = Arrangement.Bottom,
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
+                .fillMaxHeight(),
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            Image(
+                painter = painterResource(id = R.drawable.p_w_logo),
+                contentDescription = "PWeatherLogo",
+                modifier = Modifier
+                    .padding(top = 16.dp)
+                    .width(150.dp)
+                    .height(150.dp)
+            )
+            Spacer(modifier = Modifier.height(16.dp))
+            PWeatherButton(
+                text = "Sign In With Google",
+                textColor = Color.Black,
+                buttonColor = ButtonDefaults.buttonColors(Color.White),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(16.dp)
+            ) {
 
-        Image(
-            painterResource(R.drawable.ic_launcher_background),
-            "",
-            contentScale = ContentScale.Fit,
-        )
-        Text("TAGGING-V1.4.0", fontSize = 16.sp)
+            }
+            Spacer(modifier = Modifier.height(32.dp))
+            PWeatherUserInput(
+                "Username",
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(start = 16.dp, end = 16.dp)
+            )
+            Spacer(modifier = Modifier.height(16.dp))
+            PWeatherUserInputTrailing(
+                "Password",
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(start = 16.dp, end = 16.dp)
+            )
+            Spacer(modifier = Modifier.height(32.dp))
+            PWeatherButton(
+                text = "Login",
+                textColor = Color.White,
+                buttonColor = ButtonDefaults.buttonColors(Blue),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(top = 16.dp, start = 16.dp, end = 16.dp)
+            ) {
 
+            }
+        }
     }
 }
 

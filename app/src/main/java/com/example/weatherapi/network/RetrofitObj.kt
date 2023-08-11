@@ -8,15 +8,6 @@ import java.util.concurrent.TimeUnit
 
 object RetrofitObj {
 
-    fun provideRetrofit(): APIService {
-        return Retrofit.Builder()
-            .baseUrl("https:google.com")
-            .addConverterFactory(GsonConverterFactory.create())
-            .client(createClient())
-            .build()
-            .create(APIService::class.java)
-    }
-
     private fun createLoggingInterceptor(): HttpLoggingInterceptor {
         val logging = HttpLoggingInterceptor()
         logging.level = HttpLoggingInterceptor.Level.BODY

@@ -10,11 +10,11 @@ def compose_ui_version = '1.1.1'
 def retrofit_version = "2.9.0"
 
 android {
-    namespace 'com.example.weatherapi'
+    namespace 'com.ptk.pWeather'
     compileSdk 34
 
     defaultConfig {
-        applicationId "com.example.weatherapi"
+        applicationId "com.ptk.pWeather"
         minSdk 24
         targetSdk 34
         versionCode 1
@@ -63,6 +63,8 @@ dependencies {
     implementation 'androidx.compose.ui:ui-graphics'
     implementation 'androidx.compose.ui:ui-tooling-preview'
     implementation 'androidx.compose.material3:material3'
+    implementation 'androidx.core:core-ktx:+'
+    implementation 'androidx.core:core-ktx:+'
     implementation 'androidx.core:core-ktx:+'
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'

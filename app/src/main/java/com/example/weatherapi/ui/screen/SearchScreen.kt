@@ -25,46 +25,72 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
+import com.example.weatherapi.model.dto.response.SearchResponseModel
 import com.example.weatherapi.ui.ui_resource.composables.ListHeader
 import com.example.weatherapi.ui.ui_resource.composables.ListItemText
 import com.example.weatherapi.ui.ui_resource.composables.PWeatherButton
 import com.example.weatherapi.ui.ui_resource.composables.PWeatherUserInput
 import com.example.weatherapi.ui.ui_resource.theme.Blue
 import com.example.weatherapi.ui.ui_resource.theme.LightGreen
+import com.example.weatherapi.ui.ui_states.SearchUIStates
+import com.example.weatherapi.viewmodel.SearchViewModel
+import com.ptk.pWeather.R
 
+//UIs
 @OptIn(ExperimentalMaterial3Api::class)
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 fun SearchScreen(
     navController: NavController,
+    searchViewModel: SearchViewModel = hiltViewModel()
 ) {
+    val uiStates by searchViewModel.uiStates.collectAsState()
+
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text("Search City") },
+                colors = TopAppBarDefaults.smallTopAppBarColors(containerColor = LightGreen),
+                title = {
+                    Text(
+                        "Search City", color = Color.Black, fontWeight = FontWeight.Bold,
+                        fontSize = 20.sp
+                    )
+                },
                 navigationIcon = {
                     IconButton(onClick = { navController.popBackStack() }) {
-                        Icon(imageVector = Icons.Default.ArrowBack, contentDescription = null)
+                        Icon(
+                            imageVector = Icons.Default.ArrowBack,
+                            contentDescription = null,
+                            tint = Color.Black
+                        )
                     }
-                }
+                },
             )
         }
     ) {
-        SearchScreenContent(it.calculateTopPadding().value)
+        SearchScreenContent(it.calculateTopPadding().value, uiStates, searchViewModel)
     }
 }
 
 @Composable
-fun SearchScreenContent(topMargin: Float) {
+fun SearchScreenContent(
+    topMargin: Float,
+    uiStates: SearchUIStates,
+    searchViewModel: SearchViewModel
+) {
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -79,8 +105,9 @@ fun SearchScreenContent(topMargin: Float) {
                     .height(55.dp),
                 text = "Search",
                 textColor = Color.White,
-                buttonColor = ButtonDefaults.buttonColors(Color.Blue)
+                buttonColor = ButtonDefaults.buttonColors(Blue)
             ) {
+                searchViewModel.getSearchList("London")
             }
         }
         Divider(
@@ -90,21 +117,21 @@ fun SearchScreenContent(topMargin: Float) {
         )
         Surface(color = Color.White, modifier = Modifier.padding(16.dp)) {
             Column() {
-                ListHeader()
-                SearchList()
+                ListHeader("Name")
+                SearchList(uiStates)
             }
         }
     }
 }
 
 @Composable
-fun ColumnScope.SearchList() {
-    val items = (1..20).toList()
+fun ColumnScope.SearchList(uiStates: SearchUIStates) {
+
     LazyColumn(
         modifier = Modifier.weight(1F),
         contentPadding = PaddingValues(top = 8.dp)
     ) {
-        items(items) { item ->
+        items(uiStates.searchList) { item ->
             SearchListItem(item)
             Spacer(modifier = Modifier.height(2.dp))
         }
@@ -112,7 +139,7 @@ fun ColumnScope.SearchList() {
 }
 
 @Composable
-fun SearchListItem(item: Int) {
+fun SearchListItem(searchItem: SearchResponseModel) {
     Row(
         Modifier
             .fillMaxWidth()
@@ -121,9 +148,13 @@ fun SearchListItem(item: Int) {
         verticalAlignment = Alignment.CenterVertically
     ) {
 
-        ListItemText("$item")
-        ListItemText("Country")
-
+        ListItemText("${searchItem.name}")
+        ListItemText("${searchItem.country}")
+        Icon(
+            painter = painterResource(id = R.drawable.baseline_info_24),
+            contentDescription = "InfoIconListItem",
+            tint = Color.White
+        )
     }
 }
 

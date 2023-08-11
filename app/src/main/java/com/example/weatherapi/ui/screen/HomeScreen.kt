@@ -1,6 +1,7 @@
 package com.example.weatherapi.ui.screen
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -11,63 +12,91 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-import com.example.weatherapi.R
+import com.example.weatherapi.ui.ui_resource.navigation.Routes
 import com.example.weatherapi.ui.ui_resource.theme.Blue
 import com.example.weatherapi.ui.ui_resource.theme.LightGreen
+import com.ptk.pWeather.R
 
+//UIs
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomeScreen(
     navController: NavController,
 ) {
 
-
-    HomeScreenContent()
-
+    Scaffold(
+        topBar = {
+            TopAppBar(
+                colors = TopAppBarDefaults.smallTopAppBarColors(containerColor = Blue),
+                title = {
+                    Text(
+                        "Home",
+                        color = Color.White,
+                        fontWeight = FontWeight.Bold,
+                        fontSize = 20.sp,
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(end = 16.dp),
+                        textAlign = TextAlign.Center
+                    )
+                },
+            )
+        }
+    ) {
+        HomeScreenContent(navController, it.calculateTopPadding().value)
+    }
 
 }
 
 @Composable
-fun HomeScreenContent() {
+fun HomeScreenContent(navController: NavController, topMargin: Float) {
     Column(
         modifier = Modifier
             .fillMaxSize()
             .background(color = LightGreen)
-            .padding(start = 80.dp, end = 80.dp),
+            .padding(start = 80.dp, end = 80.dp, top = topMargin.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.SpaceEvenly
     ) {
-        HomeCardItem(R.drawable.search, "Home Search Card", "Search")
-        HomeCardItem(R.drawable.astronomy, "Home Astronomy Card", "Astronomy")
-        HomeCardItem(R.drawable.football, "Home Football Card", "Football")
+        HomeCardItem(R.drawable.search, "Home Search Card", "Search") {
+            navigateToOtherScreens(navController, Routes.SearchScreen.route)
+        }
+        HomeCardItem(R.drawable.astronomy, "Home Astronomy Card", "Astronomy") {
+            navigateToOtherScreens(navController, Routes.AstronomyScreen.route)
+
+        }
+        HomeCardItem(R.drawable.football, "Home Football Card", "Sport") {
+            navigateToOtherScreens(navController, Routes.SportScreen.route)
+
+        }
     }
 }
 
 
-@Preview
 @Composable
-fun HomeScreenPreview() {
-    HomeScreenContent()
-}
-
-
-@Composable
-fun HomeCardItem(resourceId: Int, contentDesc: String, text: String) {
+fun HomeCardItem(resourceId: Int, contentDesc: String, text: String, func: () -> Unit) {
     Box(
         modifier = Modifier
             .fillMaxWidth()
             .background(Blue, RoundedCornerShape(32.dp))
+            .clickable(onClick = func)
     ) {
         Column(
             modifier = Modifier
@@ -90,4 +119,9 @@ fun HomeCardItem(resourceId: Int, contentDesc: String, text: String) {
             )
         }
     }
+}
+
+// functions
+fun navigateToOtherScreens(navController: NavController, routeName: String) {
+    navController.navigate(routeName)
 }
