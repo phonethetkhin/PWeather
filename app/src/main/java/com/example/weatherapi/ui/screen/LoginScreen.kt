@@ -17,12 +17,12 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.example.weatherapi.R
 import com.example.weatherapi.ui.ui_resource.composables.PWeatherButton
 import com.example.weatherapi.ui.ui_resource.composables.PWeatherUserInput
 import com.example.weatherapi.ui.ui_resource.composables.PWeatherUserInputTrailing
 import com.example.weatherapi.ui.ui_resource.theme.Blue
 import com.example.weatherapi.ui.ui_resource.theme.LightGreen
-import com.ptk.pWeather.R
 
 
 @Composable
@@ -67,9 +67,11 @@ fun LoginScreenContent(
             ) {
 
             }
+            
             Spacer(modifier = Modifier.height(32.dp))
             PWeatherUserInput(
                 "Username",
+                true,
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(start = 16.dp, end = 16.dp)

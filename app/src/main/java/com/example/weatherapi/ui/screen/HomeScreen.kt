@@ -29,10 +29,10 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import com.example.weatherapi.R
 import com.example.weatherapi.ui.ui_resource.navigation.Routes
 import com.example.weatherapi.ui.ui_resource.theme.Blue
 import com.example.weatherapi.ui.ui_resource.theme.LightGreen
-import com.ptk.pWeather.R
 
 //UIs
 @OptIn(ExperimentalMaterial3Api::class)

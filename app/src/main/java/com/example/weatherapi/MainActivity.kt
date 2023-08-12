@@ -7,7 +7,9 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.compose.rememberNavController
 import com.example.weatherapi.ui.ui_resource.navigation.NavGraph
 import com.example.weatherapi.ui.ui_resource.theme.WeatherAPITheme
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

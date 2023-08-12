@@ -8,6 +8,7 @@ import com.example.weatherapi.ui.screen.AstronomyScreen
 import com.example.weatherapi.ui.screen.HomeScreen
 import com.example.weatherapi.ui.screen.LoginScreen
 import com.example.weatherapi.ui.screen.SearchScreen
+//import com.example.weatherapi.ui.screen.SearchScreen
 import com.example.weatherapi.ui.screen.SplashScreen
 import com.example.weatherapi.ui.screen.SportScreen
 
@@ -15,7 +16,7 @@ import com.example.weatherapi.ui.screen.SportScreen
 fun NavGraph(
     navController: NavHostController,
 ) {
-    NavHost(navController = navController, startDestination = Routes.LoginScreen.route) {
+    NavHost(navController = navController, startDestination = Routes.HomeScreen.route) {
         composable(route = Routes.SplashScreen.route) {
             SplashScreen(navController)
         }

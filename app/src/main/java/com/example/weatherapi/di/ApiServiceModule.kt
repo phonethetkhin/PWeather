@@ -1,17 +1,14 @@
 package com.example.weatherapi.di
 
-import android.app.Application
 import com.example.weatherapi.network.APIService
 import com.example.weatherapi.network.RetrofitObj
+import com.example.weatherapi.util.Constants.BASE_URL
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import okhttp3.OkHttpClient
-import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 
 @Module
@@ -22,7 +19,7 @@ object ApiServiceModule {
     @Provides
     fun provideRetrofit(): APIService {
         return Retrofit.Builder()
-            .baseUrl("https:google.com")
+            .baseUrl(BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .client(RetrofitObj.createClient())
             .build()

@@ -14,8 +14,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.example.weatherapi.R
 import com.example.weatherapi.ui.ui_resource.navigation.Routes
-import com.ptk.pWeather.R
 import kotlinx.coroutines.delay
 
 

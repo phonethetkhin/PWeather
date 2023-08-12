@@ -4,9 +4,9 @@ import android.app.Application
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.weatherapi.model.RemoteResource
-import com.example.weatherapi.model.dto.response.SearchResponseModel
-import com.example.weatherapi.repository.SearchRepository
-import com.example.weatherapi.ui.ui_states.SearchUIStates
+import com.example.weatherapi.model.dto.response.SportResponseItem
+import com.example.weatherapi.repository.SportRepository
+import com.example.weatherapi.ui.ui_states.SportUIStates
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -16,12 +16,12 @@ import kotlinx.coroutines.flow.update
 import javax.inject.Inject
 
 @HiltViewModel
-class SearchViewModel @Inject constructor(
-    private val repository: SearchRepository,
+class SportViewModel @Inject constructor(
+    private val repository: SportRepository,
     private val application: Application,
 
     ) : ViewModel() {
-    private val _uiStates = MutableStateFlow(SearchUIStates())
+    private val _uiStates = MutableStateFlow(SportUIStates())
     val uiStates = _uiStates.asStateFlow()
 
     fun cityNameEmpty() {
@@ -33,15 +33,15 @@ class SearchViewModel @Inject constructor(
         _uiStates.update { it.copy(cityNameEmpty = false, cityName = cityName) }
     }
 
-    fun showDetailDialog(showDialog: Boolean, clickedItem: SearchResponseModel? = null) {
-        _uiStates.update { it.copy(showAlertDialog = showDialog, clickedItem = clickedItem) }
-    }
+      fun showDetailDialog(showDialog: Boolean, clickedItem: SportResponseItem? = null) {
+          _uiStates.update { it.copy(showAlertDialog = showDialog, clickedItem = clickedItem) }
+      }
 
-    fun getSearchList(
+    fun getSportList(
         query: String
     ) {
-        _uiStates.update { it.copy(errorMessage = "", searchList = listOf()) }
-        repository.getSearchList(query).onEach { remoteResource ->
+        _uiStates.update { it.copy(errorMessage = "", sportResponseModel = null) }
+        repository.getSportList(query).onEach { remoteResource ->
             when (remoteResource) {
                 is RemoteResource.Loading ->
                     _uiStates.update {
@@ -49,11 +49,11 @@ class SearchViewModel @Inject constructor(
                     }
 
                 is RemoteResource.Success -> {
-                    if (remoteResource.data.body().isNullOrEmpty()) {
+                    if (remoteResource.data.body() == null) {
                         _uiStates.update {
                             it.copy(
                                 showLoadingDialog = false,
-                                errorMessage = "There is no relevant data!"
+                                errorMessage = "No matching location found."
 
                             )
                         }
@@ -61,7 +61,7 @@ class SearchViewModel @Inject constructor(
                         _uiStates.update {
                             it.copy(
                                 showLoadingDialog = false,
-                                searchList = remoteResource.data.body()!!,
+                                sportResponseModel = remoteResource.data.body()!!,
                                 errorMessage = ""
                             )
                         }
@@ -76,6 +76,8 @@ class SearchViewModel @Inject constructor(
                         )
                     }
                 }
+
+                else -> {}
             }
         }.launchIn(viewModelScope)
     }

@@ -10,17 +10,17 @@ import org.apache.http.conn.ConnectTimeoutException
 import java.net.SocketTimeoutException
 import javax.inject.Inject
 
-class SearchRepository @Inject constructor(
+class SportRepository @Inject constructor(
     private val application: Application,
     private val apiService: APIService,
 ) {
-    fun getSearchList(
+    fun getSportList(
         query: String
     ) = channelFlow {
         send(RemoteResource.Loading)
         try {
             val response =
-                apiService.getSearchList(Constants.API_KEY, query)
+                apiService.getSportList(Constants.API_KEY, query)
             send(RemoteResource.Success(response))
         } catch (e: Exception) {
             when (e) {

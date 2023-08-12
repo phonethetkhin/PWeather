@@ -2,17 +2,20 @@ package com.example.weatherapi.ui.ui_resource.composables
 
 import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.RowScope
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.CalendarMonth
+import androidx.compose.material.icons.filled.Error
 import androidx.compose.material.icons.filled.Visibility
 import androidx.compose.material.icons.filled.VisibilityOff
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.LocalTextStyle
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
@@ -29,10 +32,15 @@ import androidx.compose.ui.unit.sp
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun RowScope.PWeatherUserInput() {
+fun RowScope.PWeatherUserInput(
+    value: String,
+    cityNameEmpty: Boolean = false,
+    onValueChange: (String) -> Unit
+) {
     TextField(
-        value = "",
-        onValueChange = { },
+        value = value,
+        onValueChange = onValueChange,
+
         modifier = Modifier
             .weight(1F),
         colors = TextFieldDefaults.textFieldColors(
@@ -44,15 +52,30 @@ fun RowScope.PWeatherUserInput() {
         ),
         shape = RoundedCornerShape(32.dp),
 
-        textStyle = LocalTextStyle.current.copy(fontSize = 16.sp),
+        textStyle = LocalTextStyle.current.copy(
+            fontSize = 16.sp,
+            color = Color.Black,
+            fontWeight = FontWeight.Bold,
+        ),
         placeholder = {
             Text(
                 "City name",
-                color = Color.Black,
                 fontSize = 16.sp,
-                fontWeight = FontWeight.Bold,
-                modifier = Modifier.padding(start = 8.dp)
             )
+        },
+        supportingText = {
+            if (cityNameEmpty) {
+                Text(
+                    text = "City Name must not be empty!!!",
+                    fontSize = 12.sp,
+                    color = Color.Red,
+                    modifier = Modifier.fillMaxWidth()
+                )
+            }
+        }, trailingIcon = {
+            if (cityNameEmpty) {
+                Icon(Icons.Filled.Error, "error", tint = MaterialTheme.colorScheme.error)
+            }
         }
     )
 }
@@ -95,7 +118,11 @@ fun RowScope.PWeatherUserInputTrailing(dateClicked: () -> Unit) {
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ColumnScope.PWeatherUserInput(placeHolder: String, modifier: Modifier = Modifier) {
+fun ColumnScope.PWeatherUserInput(
+    placeHolder: String,
+    cityNameEmpty: Boolean,
+    modifier: Modifier = Modifier
+) {
     TextField(
         value = "",
         onValueChange = { },
