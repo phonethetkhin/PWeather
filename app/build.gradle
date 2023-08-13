@@ -10,11 +10,11 @@ def compose_ui_version = '1.1.1'
 def retrofit_version = "2.9.0"
 
 android {
-    namespace 'com.example.weatherapi'
+    namespace 'com.ptk.pweather'
     compileSdk 34
 
     defaultConfig {
-        applicationId "com.example.weatherapi"
+        applicationId "com.ptk.pweather"
         minSdk 24
         targetSdk 33
         versionCode 1
