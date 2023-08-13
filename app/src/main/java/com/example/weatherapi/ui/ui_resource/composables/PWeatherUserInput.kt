@@ -82,12 +82,17 @@ fun RowScope.PWeatherUserInput(
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun RowScope.PWeatherUserInputTrailing(dateClicked: () -> Unit) {
+fun RowScope.PWeatherUserInputTrailing(
+    value: String,
+    dateEmpty: Boolean,
+    dateClicked: () -> Unit
+) {
     TextField(
-        value = "",
-        onValueChange = { },
+        value = value,
+        onValueChange = {},
         modifier = Modifier
             .weight(1F),
+        readOnly = true,
         colors = TextFieldDefaults.textFieldColors(
             containerColor = Color.White,
 
@@ -103,16 +108,26 @@ fun RowScope.PWeatherUserInputTrailing(dateClicked: () -> Unit) {
                 Icon(imageVector = Icons.Filled.CalendarMonth, contentDescription = "DateIcon")
             }
         },
+        keyboardOptions = KeyboardOptions(),
         placeholder = {
             Text(
                 text = "Date",
-                color = Color.Black,
                 fontSize = 16.sp,
-                fontWeight = FontWeight.Bold,
                 modifier = Modifier.padding(start = 8.dp)
             )
         },
-    )
+        supportingText = {
+            if (dateEmpty) {
+                Text(
+                    text = "Date must not be empty!!!",
+                    fontSize = 12.sp,
+                    color = Color.Red,
+                    modifier = Modifier.fillMaxWidth()
+                )
+            }
+        },
+
+        )
 }
 
 

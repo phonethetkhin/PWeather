@@ -14,7 +14,7 @@ fun DetailItemText(titleText: String, valueText: String) {
             .fillMaxWidth()
             .padding(16.dp)
     ) {
-        ListItemText(titleText,modifier = Modifier.weight(1F))
+        ListItemText(titleText,modifier = Modifier.weight(0.5F))
         ListItemText(":",modifier = Modifier.weight(0.1F))
         ListItemText(valueText,modifier = Modifier.weight(1F))
     }

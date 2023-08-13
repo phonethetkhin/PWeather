@@ -58,6 +58,7 @@ import com.example.weatherapi.ui.ui_resource.composables.PWeatherUserInput
 import com.example.weatherapi.ui.ui_resource.theme.Blue
 import com.example.weatherapi.ui.ui_resource.theme.LightGreen
 import com.example.weatherapi.ui.ui_states.SportUIStates
+import com.example.weatherapi.util.getConvertDate
 import com.example.weatherapi.viewmodel.SportViewModel
 
 //UIs
@@ -243,6 +244,7 @@ fun SportScreenContent(
                     }
                 }
             }
+
             if (sportUIStates.sportResponseModel.cricket.isNotEmpty()) {
                 item {
                     Text(
@@ -333,84 +335,7 @@ fun SportScreenContent(
                 }
             }
         }
-        /* item {
-             Card(
-                 colors = CardDefaults.cardColors(
-                     containerColor = Color.White,
-                 ),
-                 modifier = Modifier.padding(16.dp)
-             ) {
-                 this@LazyColumn.item {
-
-                 }
-                 this@LazyColumn.item { ListHeader("Tour Name") }
-                 this@LazyColumn.item { this@LazyColumn.SportsList(sportUIStates, sportViewModel, 0) }
-                 *//*  this@LazyColumn.FootballList(
-                    sportUIStates = sportUIStates,
-                    sportViewModel = sportViewModel
-                )
-                this@LazyColumn.CricketList(
-                    sportUIStates = sportUIStates,
-                    sportViewModel = sportViewModel
-                )
-                this@LazyColumn.GolfList(
-                    sportUIStates = sportUIStates,
-                    sportViewModel = sportViewModel
-                )*//*
-            }
-        }*/
     }
-}
-
-@Composable
-fun LazyListScope.FootballList(sportUIStates: SportUIStates, sportViewModel: SportViewModel) {
-    item {
-        Text(
-            "Football",
-            fontSize = 20.sp,
-            color = Color.Black,
-            fontWeight = FontWeight.Bold,
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(16.dp)
-        )
-    }
-    item { ListHeader("Tour Name") }
-    item { this@FootballList.SportsList(sportUIStates, sportViewModel, 0) }
-}
-
-@Composable
-fun LazyListScope.CricketList(sportUIStates: SportUIStates, sportViewModel: SportViewModel) {
-    item {
-        Text(
-            "Cricket",
-            fontSize = 20.sp,
-            color = Color.Black,
-            fontWeight = FontWeight.Bold,
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(16.dp)
-        )
-    }
-    item { ListHeader("Tour Name") }
-    item { this@CricketList.SportsList(sportUIStates, sportViewModel, 1) }
-}
-
-@Composable
-fun LazyListScope.GolfList(sportUIStates: SportUIStates, sportViewModel: SportViewModel) {
-    item {
-        Text(
-            "Golf",
-            fontSize = 20.sp,
-            color = Color.Black,
-            fontWeight = FontWeight.Bold,
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(16.dp)
-        )
-    }
-    item { ListHeader("Tour Name") }
-    item { this@GolfList.SportsList(sportUIStates, sportViewModel, 2) }
 }
 
 
@@ -535,10 +460,13 @@ fun SportFullScreenDialogContent(clickedItem: SportResponseItem, onClose: () -> 
 
                 }
                 DetailItemText("Tournament", "${clickedItem.tournament}")
-                DetailItemText("Region", "${clickedItem.region}")
+                DetailItemText("Stadium", "${clickedItem.stadium}")
                 DetailItemText("Country", "${clickedItem.country}")
-//                DetailItemText("Latitude", "${clickedItem.lat}")
-//                DetailItemText("Longitude", "${clickedItem.lon}")
+                DetailItemText(
+                    "Date",
+                    "${clickedItem.start?.getConvertDate("yyyy-MM-dd", "yyyy/MM/dd")}"
+                )
+                DetailItemText("Match", "${clickedItem.match}")
             }
         }
     }

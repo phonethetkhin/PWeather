@@ -1,5 +1,6 @@
 package com.example.weatherapi.network
 
+import com.example.weatherapi.model.dto.response.AstronomyResponseModel
 import com.example.weatherapi.model.dto.response.SearchResponseModel
 import com.example.weatherapi.model.dto.response.SportResponseModel
 import retrofit2.Response
@@ -15,6 +16,15 @@ interface APIService {
         @Query("key") apiKey: String,
         @Query("q") query: String
     ): Response<List<SearchResponseModel>>
+
+    @GET(APIRoutes.getAstronomy)
+    @Headers("Accept: application/json")
+    suspend fun getAstronomy(
+        @Query("key") apiKey: String,
+        @Query("q") query: String,
+        @Query("dt") dateTime: String,
+    ): Response<AstronomyResponseModel>
+
 
     @GET(APIRoutes.getSportList)
     @Headers("Accept: application/json")
