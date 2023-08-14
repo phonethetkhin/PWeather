@@ -60,6 +60,8 @@ import com.ptk.pweather.ui.ui_resource.theme.Blue
 import com.ptk.pweather.ui.ui_resource.theme.LightGreen
 import com.ptk.pweather.ui.ui_states.UserUIStates
 import com.ptk.pweather.viewmodel.UserViewModel
+import ir.kaaveh.sdpcompose.sdp
+import ir.kaaveh.sdpcompose.ssp
 
 
 @Composable
@@ -83,7 +85,7 @@ fun RegisterScreen(
 
             // render the animation
             LottieAnimation(
-                modifier = Modifier.size(240.dp),
+                modifier = Modifier.size(240.sdp),
                 composition = composition,
                 iterations = LottieConstants.IterateForever // animate forever
 
@@ -95,7 +97,7 @@ fun RegisterScreen(
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center
         ) {
-            Text("Register Successfully", fontSize = 32.sp, color = Color.Black)
+            Text("Register Successfully", fontSize = 24.ssp, color = Color.Black)
             val composition by rememberLottieComposition(
                 spec = LottieCompositionSpec.RawRes(resId = R.raw.login_success_lottie)
             )
@@ -104,7 +106,7 @@ fun RegisterScreen(
 
             // render the animation
             LottieAnimation(
-                modifier = Modifier.size(240.dp),
+                modifier = Modifier.size(240.sdp),
                 composition = composition,
 
                 )
@@ -120,7 +122,7 @@ fun RegisterScreen(
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(top = 64.dp),
+                .padding(top = 64.sdp),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center
         ) {
@@ -130,7 +132,7 @@ fun RegisterScreen(
 
             // render the animation
             LottieAnimation(
-                modifier = Modifier.size(size = 240.dp),
+                modifier = Modifier.size(size = 240.sdp),
                 composition = composition,
             )
 
@@ -155,7 +157,7 @@ fun RegisterScreenContent(
             modifier = modifier
                 .fillMaxWidth()
                 .fillMaxHeight()
-                .padding(top = 16.dp)
+                .padding(top = 16.sdp)
                 .verticalScroll(rememberScrollState()),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
@@ -163,10 +165,10 @@ fun RegisterScreenContent(
                 painter = painterResource(id = R.drawable.p_w_logo),
                 contentDescription = "PWeatherLogo",
                 modifier = Modifier
-                    .width(150.dp)
-                    .height(150.dp)
+                    .width(150.sdp)
+                    .height(150.sdp)
             )
-            Spacer(modifier = Modifier.height(32.dp))
+            Spacer(modifier = Modifier.height(32.sdp))
 
             PWeatherUserInput(
                 "Username",
@@ -176,9 +178,9 @@ fun RegisterScreenContent(
                 viewModel::toggleUserName,
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(start = 16.dp, end = 16.dp)
+                    .padding(start = 16.sdp, end = 16.sdp)
             )
-            Spacer(modifier = Modifier.height(8.dp))
+            Spacer(modifier = Modifier.height(8.sdp))
             PWeatherUserInputTrailing(
                 "Password",
                 uiStates.password,
@@ -187,10 +189,10 @@ fun RegisterScreenContent(
                 false,
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(start = 16.dp, end = 16.dp),
+                    .padding(start = 16.sdp, end = 16.sdp),
                 viewModel::togglePassword
             )
-            Spacer(modifier = Modifier.height(8.dp))
+            Spacer(modifier = Modifier.height(8.sdp))
 
             PWeatherUserInputTrailing(
                 "Confirm Password",
@@ -200,20 +202,20 @@ fun RegisterScreenContent(
                 uiStates.passCPassNotSame,
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(start = 16.dp, end = 16.dp),
+                    .padding(start = 16.sdp, end = 16.sdp),
                 viewModel::toggleConfirmPassword
             )
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(top = 4.dp, end = 32.dp)
+                    .padding(top = 4.sdp, end = 32.sdp)
             ) {
                 Spacer(modifier = Modifier.weight(1F))
-                Text("Already have an account?", color = Color.Black, fontSize = 12.sp)
+                Text("Already have an account?", color = Color.Black, fontSize = 12.ssp)
                 Text(
                     " Login",
                     color = Blue,
-                    fontSize = 12.sp,
+                    fontSize = 12.ssp,
                     modifier = Modifier.clickable {
                         navigateToOtherScreens(
                             navController = navController,
@@ -222,14 +224,14 @@ fun RegisterScreenContent(
                     })
 
             }
-            Spacer(modifier = Modifier.height(32.dp))
+            Spacer(modifier = Modifier.height(32.sdp))
             PWeatherButton(
                 text = "Register",
                 textColor = Color.White,
                 buttonColor = ButtonDefaults.buttonColors(Blue),
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(top = 16.dp, start = 16.dp, end = 16.dp, bottom = 16.dp)
+                    .padding(top = 16.sdp, start = 16.sdp, end = 16.sdp, bottom = 16.sdp)
             ) {
                 if (uiStates.userName.isEmpty()) {
                     viewModel.userNameEmpty()

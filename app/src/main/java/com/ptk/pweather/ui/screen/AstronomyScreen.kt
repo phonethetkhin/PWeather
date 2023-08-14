@@ -40,7 +40,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.airbnb.lottie.compose.LottieAnimation
@@ -61,6 +60,8 @@ import com.ptk.pweather.util.calculateTimeDifference
 import com.ptk.pweather.util.getConvertDate
 import com.ptk.pweather.util.notNullString
 import com.ptk.pweather.viewmodel.AstronomyViewModel
+import ir.kaaveh.sdpcompose.sdp
+import ir.kaaveh.sdpcompose.ssp
 import java.util.Calendar
 import java.util.Date
 
@@ -88,7 +89,7 @@ fun AstronomyScreen(
                 title = {
                     Text(
                         "Astronomy", color = Color.Black, fontWeight = FontWeight.Bold,
-                        fontSize = 20.sp
+                        fontSize = 20.ssp
                     )
                 },
                 navigationIcon = {
@@ -117,7 +118,7 @@ fun AstronomyScreen(
 
                 // render the animation
                 LottieAnimation(
-                    modifier = Modifier.size(240.dp),
+                    modifier = Modifier.size(240.sdp),
                     composition = composition,
                     iterations = LottieConstants.IterateForever // animate forever
 
@@ -130,7 +131,7 @@ fun AstronomyScreen(
             Column(
                 modifier = Modifier
                     .fillMaxSize()
-                    .padding(top = 64.dp),
+                    .padding(top = 64.sdp),
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.Center
             ) {
@@ -140,13 +141,13 @@ fun AstronomyScreen(
 
                 // render the animation
                 LottieAnimation(
-                    modifier = Modifier.size(size = 240.dp),
+                    modifier = Modifier.size(size = 240.sdp),
                     composition = composition,
                 )
 
                 // render the animation
 
-                Text("${uiStates.errorMessage}")
+                Text("${uiStates.errorMessage}", fontSize = 14.ssp)
             }
         }
     }
@@ -167,14 +168,14 @@ fun AstronomyScreenContent(
     ) {
         Row(
             verticalAlignment = Alignment.CenterVertically,
-            modifier = Modifier.padding(top = 16.dp, end = 16.dp, start = 16.dp)
+            modifier = Modifier.padding(top = 16.sdp, end = 16.sdp, start = 16.sdp)
         ) {
             PWeatherUserInput(
                 uiStates.cityName,
                 uiStates.cityNameEmpty,
                 astronomyViewModel::toggleCityName
             )
-            Spacer(modifier = Modifier.width(16.dp))
+            Spacer(modifier = Modifier.width(16.sdp))
             PWeatherUserInputTrailing(
                 uiStates.dateName,
                 uiStates.dateEmpty,
@@ -182,12 +183,12 @@ fun AstronomyScreenContent(
                 mDatePickerDialog.show()
             }
         }
-        Spacer(modifier = Modifier.height(8.dp))
+        Spacer(modifier = Modifier.height(8.sdp))
         PWeatherButton(
             modifier = Modifier
                 .fillMaxWidth()
-                .height(55.dp)
-                .padding(start = 16.dp, end = 16.dp),
+                .height(55.sdp)
+                .padding(start = 16.sdp, end = 16.sdp),
             text = "Search",
             textColor = Color.White,
             buttonColor = ButtonDefaults.buttonColors(Blue)
@@ -203,13 +204,13 @@ fun AstronomyScreenContent(
             }
 
         }
-        Spacer(modifier = Modifier.height(16.dp))
+        Spacer(modifier = Modifier.height(16.sdp))
         Divider(
             modifier = Modifier
-                .height(4.dp)
-                .padding(start = 16.dp, end = 16.dp), color = Blue
+                .height(4.sdp)
+                .padding(start = 16.sdp, end = 16.sdp), color = Blue
         )
-        Spacer(modifier = Modifier.height(16.dp))
+        Spacer(modifier = Modifier.height(16.sdp))
 
         if (uiStates.astronomyResponse != null) {
             Card(
@@ -218,7 +219,7 @@ fun AstronomyScreenContent(
 
                     ),
                 modifier = Modifier
-                    .padding(start = 16.dp, end = 16.dp)
+                    .padding(start = 16.sdp, end = 16.sdp)
             ) {
                 uiStates.astronomyResponse.location?.let {
                     val distanceFromYangon = calculateDistanceFromYangon(
@@ -285,7 +286,7 @@ fun AstronomyScreenContent(
                 }
             }
         }
-        Spacer(modifier = Modifier.height(16.dp))
+        Spacer(modifier = Modifier.height(16.sdp))
 
     }
 }

@@ -32,7 +32,8 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
+import ir.kaaveh.sdpcompose.sdp
+import ir.kaaveh.sdpcompose.ssp
 
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -58,21 +59,21 @@ fun RowScope.PWeatherUserInput(
         shape = RoundedCornerShape(32.dp),
 
         textStyle = LocalTextStyle.current.copy(
-            fontSize = 16.sp,
+            fontSize = 14.ssp,
             color = Color.Black,
             fontWeight = FontWeight.Bold,
         ),
         placeholder = {
             Text(
                 "City name",
-                fontSize = 16.sp,
+                fontSize = 14.ssp,
             )
         },
         supportingText = {
             if (cityNameEmpty) {
                 Text(
                     text = "City Name must not be empty!!!",
-                    fontSize = 12.sp,
+                    fontSize = 10.ssp,
                     color = Color.Red,
                     modifier = Modifier.fillMaxWidth()
                 )
@@ -107,7 +108,7 @@ fun RowScope.PWeatherUserInputTrailing(
         ),
         shape = RoundedCornerShape(32.dp),
 
-        textStyle = LocalTextStyle.current.copy(fontSize = 16.sp),
+        textStyle = LocalTextStyle.current.copy(fontSize = 16.ssp),
         trailingIcon = {
             IconButton(onClick = dateClicked) {
                 Icon(imageVector = Icons.Filled.CalendarMonth, contentDescription = "DateIcon")
@@ -117,7 +118,7 @@ fun RowScope.PWeatherUserInputTrailing(
         placeholder = {
             Text(
                 text = "Date",
-                fontSize = 16.sp,
+                fontSize = 14.ssp,
                 modifier = Modifier.padding(start = 8.dp)
             )
         },
@@ -125,7 +126,7 @@ fun RowScope.PWeatherUserInputTrailing(
             if (dateEmpty) {
                 Text(
                     text = "Date must not be empty!!!",
-                    fontSize = 12.sp,
+                    fontSize = 10.ssp,
                     color = Color.Red,
                     modifier = Modifier.fillMaxWidth()
                 )
@@ -160,28 +161,28 @@ fun ColumnScope.PWeatherUserInput(
         ),
         shape = RoundedCornerShape(32.dp),
         textStyle = LocalTextStyle.current.copy(
-            fontSize = 16.sp,
+            fontSize = 14.ssp,
             color = Color.Black,
             fontWeight = FontWeight.Bold,
         ),
         placeholder = {
             Text(
                 placeHolder,
-                fontSize = 16.sp,
+                fontSize = 14.ssp,
             )
         },
         supportingText = {
             if (valueEmpty) {
                 Text(
                     text = "$placeHolder must not be empty!!!",
-                    fontSize = 12.sp,
+                    fontSize = 10.ssp,
                     color = Color.Red,
                     modifier = Modifier.fillMaxWidth()
                 )
             } else if (userNameNotExist != null && userNameNotExist == false) {
                 Text(
                     text = "This username already taken!!!",
-                    fontSize = 12.sp,
+                    fontSize = 10.ssp,
                     color = Color.Red,
                     modifier = Modifier.fillMaxWidth()
                 )
@@ -220,10 +221,10 @@ fun ColumnScope.PWeatherUserInputTrailing(
             unfocusedIndicatorColor = Color.Transparent,
             cursorColor = Color.Black
         ),
-        shape = RoundedCornerShape(32.dp),
+        shape = RoundedCornerShape(32.sdp),
 
         textStyle = LocalTextStyle.current.copy(
-            fontSize = 16.sp,
+            fontSize = 14.ssp,
             color = Color.Black,
             fontWeight = FontWeight.Bold,
         ),
@@ -249,21 +250,21 @@ fun ColumnScope.PWeatherUserInputTrailing(
             if (valueEmpty) {
                 Text(
                     text = "$placeHolder must not be empty!!!",
-                    fontSize = 12.sp,
+                    fontSize = 10.ssp,
                     color = Color.Red,
                     modifier = Modifier.fillMaxWidth()
                 )
             } else if (passwordLengthShort) {
                 Text(
                     text = "Password must be at least 6 characters",
-                    fontSize = 12.sp,
+                    fontSize = 10.ssp,
                     color = Color.Red,
                     modifier = Modifier.fillMaxWidth()
                 )
             } else if (passCPassNotSame) {
                 Text(
                     text = "Password and Confirm Password not same",
-                    fontSize = 12.sp,
+                    fontSize = 10.ssp,
                     color = Color.Red,
                     modifier = Modifier.fillMaxWidth()
                 )
@@ -272,7 +273,7 @@ fun ColumnScope.PWeatherUserInputTrailing(
         placeholder = {
             Text(
                 text = placeHolder,
-                fontSize = 16.sp,
+                fontSize = 14.ssp,
             )
         },
 

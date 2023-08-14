@@ -8,6 +8,7 @@ import com.ptk.pweather.repository.UserRepository
 import com.ptk.pweather.roomdb.entity.UserEntity
 import com.ptk.pweather.ui.ui_states.UserUIStates
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.launchIn
@@ -49,6 +50,18 @@ class UserViewModel @Inject constructor(
 
     fun showAlertDialog(showAlertDialog: Boolean) {
         _uiStates.update { it.copy(showAlertDialog = showAlertDialog) }
+    }
+
+    fun setGGSignInErrorMessage(ggSignInErrMsg: String) {
+        _uiStates.update { it.copy(ggSignInErrMsg = ggSignInErrMsg) }
+    }
+
+    fun setGGSignInSuccess(ggSignInSuccess:Boolean){
+        _uiStates.update { it.copy(ggSignInSuccess = ggSignInSuccess) }
+    }
+
+    fun setErrorMessage(errorMessage: String) {
+        _uiStates.update { it.copy(errorMessage = errorMessage) }
     }
 
     fun togglePassword(password: String) {
@@ -219,5 +232,6 @@ class UserViewModel @Inject constructor(
             }
         }.launchIn(viewModelScope)
     }
+
 
 }

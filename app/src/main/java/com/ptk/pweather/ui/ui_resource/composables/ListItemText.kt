@@ -8,13 +8,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
+import ir.kaaveh.sdpcompose.ssp
 
 @Composable
 fun RowScope.ListItemText(text:String, modifier: Modifier = Modifier) {
     Text(
         text = text,
         modifier= modifier,
-        fontSize = 14.sp,
+        fontSize = 12.ssp,
         fontWeight = FontWeight.Bold,
         color = Color.White
     )
@@ -24,7 +25,7 @@ fun ColumnScope.ListItemText(text:String, modifier: Modifier = Modifier) {
     Text(
         text = text,
         modifier= modifier.weight(1F),
-        fontSize = 14.sp,
+        fontSize = 12.ssp,
         fontWeight = FontWeight.Bold,
         color = Color.White
     )

@@ -41,7 +41,7 @@ class UserRepository @Inject constructor(
 
     fun login(userName: String, password: String) = channelFlow {
         send(RemoteResource.Loading)
-        delay(3000L)
+        delay(1000L)
         try {
             val userEntity = userDao.login(userName, password)
             send(RemoteResource.Success(userEntity))

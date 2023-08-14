@@ -15,5 +15,7 @@ data class UserUIStates(
     val errorMessage: String = "",
     val userNameNotExist: Boolean? = null,
     val registerSuccess: Boolean = false,
-    val loginSuccess: Boolean = false
+    val loginSuccess: Boolean = false,
+    val ggSignInErrMsg: String = "",
+    val ggSignInSuccess: Boolean = false,
 )

@@ -6,13 +6,14 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import ir.kaaveh.sdpcompose.sdp
 
 @Composable
 fun DetailItemText(titleText: String, valueText: String) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(16.dp)
+            .padding(16.sdp)
     ) {
         ListItemText(titleText,modifier = Modifier.weight(0.5F))
         ListItemText(":",modifier = Modifier.weight(0.1F))

@@ -2,5 +2,5 @@
     <string name="app_name">PWeather</string>
 
     <string name="connection_error_message">No internet connection! Please check your internet connection.</string>
-
+    <string name="google_client_id">475439600911-4d5aliovkbdjka85goqp24pvsh6qvmvf.apps.googleusercontent.com</string>
 </resources>

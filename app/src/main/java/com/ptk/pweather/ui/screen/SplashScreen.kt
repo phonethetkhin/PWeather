@@ -16,6 +16,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.ptk.pweather.R
 import com.ptk.pweather.ui.ui_resource.navigation.Routes
+import ir.kaaveh.sdpcompose.sdp
 import kotlinx.coroutines.delay
 
 
@@ -45,8 +46,8 @@ fun SplashScreenContent(
             painterResource(R.drawable.p_w_logo),
             "",
             modifier = modifier
-                .height(300.dp)
-                .width(300.dp)
+                .height(300.sdp)
+                .width(300.sdp)
         )
         LaunchedEffect(Unit) {
             delay(1500L)

@@ -16,7 +16,9 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.ButtonDefaults
@@ -60,6 +62,8 @@ import com.ptk.pweather.ui.ui_resource.theme.LightGreen
 import com.ptk.pweather.ui.ui_states.SportUIStates
 import com.ptk.pweather.util.getConvertDate
 import com.ptk.pweather.viewmodel.SportViewModel
+import ir.kaaveh.sdpcompose.sdp
+import ir.kaaveh.sdpcompose.ssp
 
 //UIs
 @OptIn(ExperimentalMaterial3Api::class)
@@ -81,7 +85,7 @@ fun SportScreen(
                         "Search Tournament by City",
                         color = Color.Black,
                         fontWeight = FontWeight.Bold,
-                        fontSize = 20.sp
+                        fontSize = 20.ssp
                     )
                 },
                 navigationIcon = {
@@ -110,7 +114,7 @@ fun SportScreen(
 
                 // render the animation
                 LottieAnimation(
-                    modifier = Modifier.size(240.dp),
+                    modifier = Modifier.size(240.sdp),
                     composition = composition,
                     iterations = LottieConstants.IterateForever // animate forever
 
@@ -123,7 +127,7 @@ fun SportScreen(
             Column(
                 modifier = Modifier
                     .fillMaxSize()
-                    .padding(top = 64.dp),
+                    .padding(top = 64.sdp),
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.Center
             ) {
@@ -133,7 +137,7 @@ fun SportScreen(
 
                 // render the animation
                 LottieAnimation(
-                    modifier = Modifier.size(size = 240.dp),
+                    modifier = Modifier.size(size = 240.sdp),
                     composition = composition,
                 )
 
@@ -165,18 +169,18 @@ fun SportScreenContent(
         item {
             Row(
                 verticalAlignment = Alignment.CenterVertically,
-                modifier = Modifier.padding(16.dp)
+                modifier = Modifier.padding(16.sdp)
             ) {
                 PWeatherUserInput(
                     sportUIStates.cityName,
                     sportUIStates.cityNameEmpty,
                     sportViewModel::toggleCityName
                 )
-                Spacer(modifier = Modifier.width(16.dp))
+                Spacer(modifier = Modifier.width(16.sdp))
                 PWeatherButton(
                     modifier = Modifier
-                        .padding(bottom = 16.dp)
-                        .height(55.dp),
+                        .padding(bottom = 16.sdp)
+                        .height(55.sdp),
                     text = "Search",
                     textColor = Color.White,
                     buttonColor = ButtonDefaults.buttonColors(Blue)
@@ -192,8 +196,8 @@ fun SportScreenContent(
         item {
             Divider(
                 modifier = Modifier
-                    .height(4.dp)
-                    .padding(start = 16.dp, end = 16.dp), color = Blue
+                    .height(4.sdp)
+                    .padding(start = 16.sdp, end = 16.sdp), color = Blue
             )
         }
         if (sportUIStates.sportResponseModel != null) {
@@ -203,20 +207,20 @@ fun SportScreenContent(
 
                     Text(
                         "Football",
-                        fontSize = 20.sp,
+                        fontSize = 20.ssp,
                         color = Color.Black,
                         fontWeight = FontWeight.Bold,
                         textDecoration = TextDecoration.Underline,
                         modifier = Modifier
-                            .padding(start = 16.dp, top = 16.dp, bottom = 16.dp, end = 128.dp)
+                            .padding(start = 16.sdp, top = 16.sdp, bottom = 16.sdp, end = 128.sdp)
                     )
                 }
 
                 item { ListHeader(titleName = "Tour Name") }
-                item { Spacer(modifier = Modifier.height(8.dp)) }
+                item { Spacer(modifier = Modifier.height(8.sdp)) }
                 items(sportUIStates.sportResponseModel!!.football) { item ->
                     SportListItem(item, sportViewModel)
-                    Spacer(modifier = Modifier.height(4.dp))
+                    Spacer(modifier = Modifier.height(4.sdp))
                 }
 
             } else {
@@ -224,22 +228,22 @@ fun SportScreenContent(
                     Row(modifier = Modifier.fillMaxWidth()) {
                         Text(
                             "Football",
-                            fontSize = 20.sp,
+                            fontSize = 20.ssp,
                             color = Color.Black,
                             fontWeight = FontWeight.Bold,
                             textDecoration = TextDecoration.Underline,
                             modifier = Modifier
                                 .fillMaxWidth()
-                                .padding(16.dp)
+                                .padding(16.sdp)
                         )
                         Text(
                             "(There is no relevant data!)",
-                            fontSize = 20.sp,
+                            fontSize = 20.ssp,
                             color = Color.Red,
                             fontWeight = FontWeight.Bold,
                             modifier = Modifier
                                 .fillMaxWidth()
-                                .padding(16.dp)
+                                .padding(16.sdp)
                         )
                     }
                 }
@@ -249,13 +253,13 @@ fun SportScreenContent(
                 item {
                     Text(
                         "Cricket",
-                        fontSize = 20.sp,
+                        fontSize = 20.ssp,
                         color = Color.Black,
                         fontWeight = FontWeight.Bold,
                         textDecoration = TextDecoration.Underline,
                         modifier = Modifier
                             .fillMaxWidth()
-                            .padding(16.dp)
+                            .padding(16.sdp)
                     )
                 }
                 item {
@@ -263,27 +267,27 @@ fun SportScreenContent(
                 }
                 items(sportUIStates.sportResponseModel!!.cricket) { item ->
                     SportListItem(item, sportViewModel)
-                    Spacer(modifier = Modifier.height(4.dp))
+                    Spacer(modifier = Modifier.height(4.sdp))
                 }
             } else {
                 item {
                     Row(modifier = Modifier.fillMaxWidth()) {
                         Text(
                             "Cricket",
-                            fontSize = 20.sp,
+                            fontSize = 20.ssp,
                             color = Color.Black,
                             fontWeight = FontWeight.Bold,
                             textDecoration = TextDecoration.Underline,
                             modifier = Modifier
-                                .padding(16.dp)
+                                .padding(16.sdp)
                         )
                         Text(
                             "(There is no relevant data!)",
-                            fontSize = 20.sp,
+                            fontSize = 20.ssp,
                             color = Color.Red,
                             fontWeight = FontWeight.Bold,
                             modifier = Modifier
-                                .padding(top = 16.dp)
+                                .padding(top = 16.sdp)
                         )
                     }
                 }
@@ -293,7 +297,7 @@ fun SportScreenContent(
                 item {
                     Text(
                         "Golf",
-                        fontSize = 20.sp,
+                        fontSize = 20.ssp,
                         color = Color.Black,
                         fontWeight = FontWeight.Bold,
                         textDecoration = TextDecoration.Underline,
@@ -301,7 +305,7 @@ fun SportScreenContent(
                         modifier = Modifier
 
                             .fillMaxWidth()
-                            .padding(16.dp)
+                            .padding(16.sdp)
                     )
                 }
                 item {
@@ -309,27 +313,28 @@ fun SportScreenContent(
                 }
                 items(sportUIStates.sportResponseModel!!.golf) { item ->
                     SportListItem(item, sportViewModel)
-                    Spacer(modifier = Modifier.height(4.dp))
+                    Spacer(modifier = Modifier.height(4.sdp))
                 }
             } else {
                 item {
                     Row(modifier = Modifier.fillMaxWidth()) {
                         Text(
                             "Golf",
-                            fontSize = 20.sp,
+                            fontSize = 20.ssp,
                             color = Color.Black,
                             fontWeight = FontWeight.Bold,
                             textDecoration = TextDecoration.Underline,
 
                             modifier = Modifier
-                                .padding(16.dp)
+                                .padding(16.sdp)
                         )
+                        Spacer(modifier = Modifier.width(26.sdp))
                         Text(
                             "(There is no relevant data!)",
-                            fontSize = 20.sp,
+                            fontSize = 20.ssp,
                             color = Color.Red,
                             fontWeight = FontWeight.Bold,
-                            modifier = Modifier.padding(top = 16.dp)
+                            modifier = Modifier.padding(top = 16.sdp, bottom = 16.sdp)
                         )
                     }
                 }
@@ -338,52 +343,19 @@ fun SportScreenContent(
     }
 }
 
-
-@Composable
-fun LazyListScope.SportsList(
-    uiStates: SportUIStates,
-    sportViewModel: SportViewModel,
-    sportType: Int
-) {
-    var list = (1..10).toList()
-    if (uiStates.sportResponseModel != null) {
-        val sportList = when (sportType) {
-            0 -> {
-                uiStates.sportResponseModel.football
-            }
-
-            1 -> {
-                uiStates.sportResponseModel.cricket
-            }
-
-            else -> {
-                uiStates.sportResponseModel.golf
-            }
-        }
-        items(sportList) { item ->
-            SportListItem(item, sportViewModel)
-            Spacer(modifier = Modifier.height(4.dp))
-        }
-    } /*else {
-        items(list) { item ->
-
-        }
-    }*/
-}
-
 @Composable
 fun SportListItem(item: SportResponseItem, sportViewModel: SportViewModel) {
     Card(
         colors = CardDefaults.cardColors(
             containerColor = Blue,
 
-            ), modifier = Modifier.padding(start = 16.dp, end = 16.dp)
+            ), modifier = Modifier.padding(start = 16.sdp, end = 16.sdp)
     ) {
         Row(
             Modifier
                 .fillMaxWidth()
                 .background(Blue)
-                .padding(8.dp),
+                .padding(8.sdp),
             verticalAlignment = Alignment.CenterVertically
         ) {
 
@@ -420,8 +392,9 @@ fun SportFullScreenDialogContent(clickedItem: SportResponseItem, onClose: () -> 
     Column(
         modifier = Modifier
             .fillMaxSize()
+            .verticalScroll(rememberScrollState())
             .background(LightGreen)
-            .padding(top = 16.dp, bottom = 16.dp)
+            .padding(top = 16.sdp, bottom = 16.sdp)
     ) {
         Card(
             colors = CardDefaults.cardColors(
@@ -429,8 +402,7 @@ fun SportFullScreenDialogContent(clickedItem: SportResponseItem, onClose: () -> 
 
                 ),
             modifier = Modifier
-                .padding(start = 16.dp, end = 16.dp)
-                .weight(1F)
+                .padding(start = 16.sdp, end = 16.sdp)
         ) {
             Column {
                 Row(
@@ -440,15 +412,15 @@ fun SportFullScreenDialogContent(clickedItem: SportResponseItem, onClose: () -> 
 
                     ) {
                     Card(
-                        shape = RoundedCornerShape(50.dp),
-                        modifier = Modifier.padding(8.dp),
+                        shape = RoundedCornerShape(50.sdp),
+                        modifier = Modifier.padding(8.sdp),
                         colors = CardDefaults.cardColors(
                             containerColor = Color.Red,
                         )
                     ) {
                         Icon(
                             modifier = Modifier
-                                .size(32.dp)
+                                .size(32.sdp)
                                 .clickable {
                                     onClose.invoke()
                                 },

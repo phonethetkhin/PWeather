@@ -10,6 +10,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import ir.kaaveh.sdpcompose.ssp
 
 
 @Composable
@@ -29,6 +30,6 @@ fun PWeatherButton(
         colors = buttonColor
 
     ) {
-        Text(text, fontSize = 16.sp, fontWeight = FontWeight.Bold, color = textColor)
+        Text(text, fontSize = 16.ssp, fontWeight = FontWeight.Bold, color = textColor)
     }
 }

@@ -5,8 +5,6 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.ColumnScope
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -17,7 +15,9 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.ButtonDefaults
@@ -59,6 +59,8 @@ import com.ptk.pweather.ui.ui_resource.theme.Blue
 import com.ptk.pweather.ui.ui_resource.theme.LightGreen
 import com.ptk.pweather.ui.ui_states.SearchUIStates
 import com.ptk.pweather.viewmodel.SearchViewModel
+import ir.kaaveh.sdpcompose.sdp
+import ir.kaaveh.sdpcompose.ssp
 
 //UIs
 @OptIn(ExperimentalMaterial3Api::class)
@@ -77,7 +79,7 @@ fun SearchScreen(
                 title = {
                     Text(
                         "Search City", color = Color.Black, fontWeight = FontWeight.Bold,
-                        fontSize = 20.sp
+                        fontSize = 20.ssp
                     )
                 },
                 navigationIcon = {
@@ -106,7 +108,7 @@ fun SearchScreen(
 
                 // render the animation
                 LottieAnimation(
-                    modifier = Modifier.size(240.dp),
+                    modifier = Modifier.size(240.sdp),
                     composition = composition,
                     iterations = LottieConstants.IterateForever // animate forever
 
@@ -119,7 +121,7 @@ fun SearchScreen(
             Column(
                 modifier = Modifier
                     .fillMaxSize()
-                    .padding(top = 64.dp),
+                    .padding(top = 64.sdp),
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.Center
             ) {
@@ -129,7 +131,7 @@ fun SearchScreen(
 
                 // render the animation
                 LottieAnimation(
-                    modifier = Modifier.size(size = 240.dp),
+                    modifier = Modifier.size(size = 240.sdp),
                     composition = composition,
                 )
 
@@ -152,64 +154,65 @@ fun SearchScreenContent(
     uiStates: SearchUIStates,
     searchViewModel: SearchViewModel
 ) {
-    Column(
+    LazyColumn(
         modifier = Modifier
             .fillMaxSize()
             .background(LightGreen)
             .padding(top = topMargin.dp)
     ) {
-        Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier.padding(16.dp)) {
-            PWeatherUserInput(
-                uiStates.cityName,
-                uiStates.cityNameEmpty,
-                searchViewModel::toggleCityName
-            )
-            Spacer(modifier = Modifier.width(16.dp))
-            PWeatherButton(
-                modifier = Modifier
-                    .padding(bottom = 16.dp)
-                    .height(55.dp),
-                text = "Search",
-                textColor = Color.White,
-                buttonColor = ButtonDefaults.buttonColors(Blue)
+        item {
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+                modifier = Modifier.padding(16.sdp)
             ) {
-                if (uiStates.cityName.isNotEmpty()) {
-                    searchViewModel.getSearchList(uiStates.cityName)
-                } else {
-                    searchViewModel.cityNameEmpty()
+                PWeatherUserInput(
+                    uiStates.cityName,
+                    uiStates.cityNameEmpty,
+                    searchViewModel::toggleCityName
+                )
+                Spacer(modifier = Modifier.width(16.sdp))
+                PWeatherButton(
+                    modifier = Modifier
+                        .padding(bottom = 16.sdp)
+                        .height(55.sdp),
+                    text = "Search",
+                    textColor = Color.White,
+                    buttonColor = ButtonDefaults.buttonColors(Blue)
+                ) {
+                    if (uiStates.cityName.isNotEmpty()) {
+                        searchViewModel.getSearchList(uiStates.cityName)
+                    } else {
+                        searchViewModel.cityNameEmpty()
+                    }
+
                 }
 
             }
-
         }
-        Divider(
-            modifier = Modifier
-                .height(4.dp)
-                .padding(start = 16.dp, end = 16.dp), color = Blue
-        )
-
-        Spacer(modifier = Modifier.height(8.dp))
+        item {
+            Divider(
+                modifier = Modifier
+                    .height(4.sdp)
+                    .padding(start = 16.sdp, end = 16.sdp), color = Blue
+            )
+        }
+        item { Spacer(modifier = Modifier.height(8.sdp)) }
         if (uiStates.searchList.isNotEmpty()) {
-            ListHeader("Name")
-            SearchList(uiStates, searchViewModel)
+            item { ListHeader("Name") }
+            item {
+                Spacer(
+                    modifier = Modifier
+                        .height(8.sdp)
+                )
+            }
+            items(uiStates.searchList) { item ->
+                SearchListItem(item, searchViewModel)
+                Spacer(modifier = Modifier.height(4.sdp))
+            }
         }
     }
 
 
-}
-
-@Composable
-fun ColumnScope.SearchList(uiStates: SearchUIStates, searchViewModel: SearchViewModel) {
-
-    LazyColumn(
-        modifier = Modifier.weight(1F),
-        contentPadding = PaddingValues(top = 8.dp, start = 16.dp, end = 16.dp)
-    ) {
-        items(uiStates.searchList) { item ->
-            SearchListItem(item, searchViewModel)
-            Spacer(modifier = Modifier.height(4.dp))
-        }
-    }
 }
 
 @Composable
@@ -219,7 +222,8 @@ fun SearchListItem(searchItem: SearchResponseModel, searchViewModel: SearchViewM
             containerColor = Blue,
 
             ),
-        shape = RoundedCornerShape(16.dp)
+        shape = RoundedCornerShape(16.sdp),
+        modifier = Modifier.padding(start = 16.sdp, end = 16.sdp)
     ) {
         Row(
             Modifier
@@ -260,8 +264,9 @@ fun SearchFullScreenDialogContent(clickedItem: SearchResponseModel, onClose: () 
     Column(
         modifier = Modifier
             .fillMaxSize()
+            .verticalScroll(rememberScrollState())
             .background(LightGreen)
-            .padding(top = 16.dp, bottom = 16.dp)
+            .padding(top = 16.sdp, bottom = 16.sdp)
     ) {
         Card(
             colors = CardDefaults.cardColors(
@@ -269,8 +274,7 @@ fun SearchFullScreenDialogContent(clickedItem: SearchResponseModel, onClose: () 
 
                 ),
             modifier = Modifier
-                .padding(start = 16.dp, end = 16.dp)
-                .weight(1F)
+                .padding(start = 16.sdp, end = 16.sdp)
         ) {
             Column {
                 Row(
@@ -280,15 +284,15 @@ fun SearchFullScreenDialogContent(clickedItem: SearchResponseModel, onClose: () 
 
                     ) {
                     Card(
-                        shape = RoundedCornerShape(50.dp),
-                        modifier = Modifier.padding(8.dp),
+                        shape = RoundedCornerShape(50.sdp),
+                        modifier = Modifier.padding(8.sdp),
                         colors = CardDefaults.cardColors(
                             containerColor = Color.Red,
                         )
                     ) {
                         Icon(
                             modifier = Modifier
-                                .size(32.dp)
+                                .size(32.sdp)
                                 .clickable {
                                     onClose.invoke()
                                 },
@@ -304,6 +308,7 @@ fun SearchFullScreenDialogContent(clickedItem: SearchResponseModel, onClose: () 
                 DetailItemText("Country", "${clickedItem.country}")
                 DetailItemText("Latitude", "${clickedItem.lat}")
                 DetailItemText("Longitude", "${clickedItem.lon}")
+
             }
         }
     }

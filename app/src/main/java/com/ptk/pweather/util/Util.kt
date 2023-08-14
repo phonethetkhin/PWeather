@@ -1,5 +1,11 @@
 package com.ptk.pweather.util
 
+import android.content.Context
+import android.provider.Settings.Global.getString
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInClient
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
+import com.ptk.pweather.R
 import java.math.BigDecimal
 import java.math.RoundingMode
 import java.text.SimpleDateFormat
@@ -56,4 +62,13 @@ fun calculateTimeDifference(time1: String, time2: String): String? {
     } catch (e: Exception) {
         null
     }
+}
+
+fun getGoogleLoginAuth(context: Context): GoogleSignInClient {
+    val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+        .requestEmail()
+        .requestId()
+        .requestProfile()
+        .build()
+    return GoogleSignIn.getClient(context, gso)
 }
