@@ -2,7 +2,7 @@ package com.ptk.pweather.model
 
 sealed class RemoteResource<T> {
 
-    object Loading : RemoteResource<Nothing>()
+     object Loading : RemoteResource<Nothing>()
 
     data class Success<T>(val data: T) : RemoteResource<T>()
 

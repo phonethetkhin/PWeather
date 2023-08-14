@@ -7,6 +7,7 @@ import androidx.navigation.compose.composable
 import com.ptk.pweather.ui.screen.AstronomyScreen
 import com.ptk.pweather.ui.screen.HomeScreen
 import com.ptk.pweather.ui.screen.LoginScreen
+import com.ptk.pweather.ui.screen.RegisterScreen
 import com.ptk.pweather.ui.screen.SearchScreen
 //import com.example.weatherapi.ui.screen.SearchScreen
 import com.ptk.pweather.ui.screen.SplashScreen
@@ -19,6 +20,9 @@ fun NavGraph(
     NavHost(navController = navController, startDestination = Routes.LoginScreen.route) {
         composable(route = Routes.SplashScreen.route) {
             SplashScreen(navController)
+        }
+        composable(route = Routes.RegisterScreen.route) {
+            RegisterScreen(navController)
         }
         composable(route = Routes.LoginScreen.route) {
             LoginScreen(navController)

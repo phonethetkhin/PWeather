@@ -7,9 +7,9 @@ import com.ptk.pweather.roomdb.entity.UserEntity
 
 @Database(
     entities = [UserEntity::class],
-    version = 1
+    version = 1,
+    exportSchema = false
 )
-
 abstract class PWeatherDB : RoomDatabase() {
 
     abstract fun getUserDao(): UserDao

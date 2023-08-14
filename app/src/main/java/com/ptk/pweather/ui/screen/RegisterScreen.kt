@@ -1,6 +1,13 @@
 package com.ptk.pweather.ui.screen
 
+import android.util.Log
+import androidx.compose.animation.core.animateFloat
+import androidx.compose.animation.core.infiniteRepeatable
+import androidx.compose.animation.core.keyframes
+import androidx.compose.animation.core.rememberInfiniteTransition
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -13,7 +20,14 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -21,10 +35,15 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.rotate
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.compose.ui.window.DialogProperties
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.airbnb.lottie.compose.LottieAnimation
@@ -44,14 +63,13 @@ import com.ptk.pweather.viewmodel.UserViewModel
 
 
 @Composable
-fun LoginScreen(
+fun RegisterScreen(
     navController: NavController,
     userViewModel: UserViewModel = hiltViewModel()
 ) {
 
     val uiStates by userViewModel.uiStates.collectAsState()
-
-
+    //Conditions depend upon states changes
     if (uiStates.showLoadingDialog) {
 
         Column(
@@ -71,13 +89,13 @@ fun LoginScreen(
 
             )
         }
-    } else if (uiStates.loginSuccess) {
+    } else if (uiStates.registerSuccess) {
         Column(
             modifier = Modifier.fillMaxSize(),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center
         ) {
-            Text("Login Successfully", fontSize = 32.sp, color = Color.Black)
+            Text("Register Successfully", fontSize = 32.sp, color = Color.Black)
             val composition by rememberLottieComposition(
                 spec = LottieCompositionSpec.RawRes(resId = R.raw.login_success_lottie)
             )
@@ -96,7 +114,7 @@ fun LoginScreen(
             }
         }
     } else {
-        LoginScreenContent(uiStates, userViewModel, navController)
+        RegisterScreenContent(uiStates, userViewModel, navController)
     }
     if (uiStates.errorMessage.isNotEmpty()) {
         Column(
@@ -107,7 +125,7 @@ fun LoginScreen(
             verticalArrangement = Arrangement.Center
         ) {
             val composition by rememberLottieComposition(
-                spec = LottieCompositionSpec.RawRes(resId = R.raw.locked_lottie)
+                spec = LottieCompositionSpec.RawRes(resId = R.raw.error_lottie)
             )
 
             // render the animation
@@ -121,50 +139,41 @@ fun LoginScreen(
             Text("${uiStates.errorMessage}")
         }
     }
+
 }
 
 
 @Composable
-fun LoginScreenContent(
+fun RegisterScreenContent(
     uiStates: UserUIStates,
-    userViewModel: UserViewModel,
+    viewModel: UserViewModel,
     navController: NavController,
-    modifier: Modifier = Modifier,
+    modifier: Modifier = Modifier
 ) {
     Surface(color = LightGreen) {
         Column(
             modifier = modifier
                 .fillMaxWidth()
-                .fillMaxHeight(),
+                .fillMaxHeight()
+                .padding(top = 16.dp)
+                .verticalScroll(rememberScrollState()),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Image(
                 painter = painterResource(id = R.drawable.p_w_logo),
                 contentDescription = "PWeatherLogo",
                 modifier = Modifier
-                    .padding(top = 16.dp)
                     .width(150.dp)
                     .height(150.dp)
             )
-            Spacer(modifier = Modifier.height(16.dp))
-            PWeatherButton(
-                text = "Sign In With Google",
-                textColor = Color.Black,
-                buttonColor = ButtonDefaults.buttonColors(Color.White),
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(16.dp)
-            ) {
-
-            }
-
             Spacer(modifier = Modifier.height(32.dp))
+
             PWeatherUserInput(
                 "Username",
                 uiStates.userName,
                 uiStates.userNameEmpty,
                 uiStates.userNameNotExist,
-                userViewModel::toggleUserName,
+                viewModel::toggleUserName,
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(start = 16.dp, end = 16.dp)
@@ -179,7 +188,20 @@ fun LoginScreenContent(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(start = 16.dp, end = 16.dp),
-                userViewModel::togglePassword
+                viewModel::togglePassword
+            )
+            Spacer(modifier = Modifier.height(8.dp))
+
+            PWeatherUserInputTrailing(
+                "Confirm Password",
+                uiStates.confirmPassword,
+                uiStates.confirmPasswordEmpty,
+                false,
+                uiStates.passCPassNotSame,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(start = 16.dp, end = 16.dp),
+                viewModel::toggleConfirmPassword
             )
             Row(
                 modifier = Modifier
@@ -187,22 +209,22 @@ fun LoginScreenContent(
                     .padding(top = 4.dp, end = 32.dp)
             ) {
                 Spacer(modifier = Modifier.weight(1F))
-                Text("Don't have an account yet?", color = Color.Black, fontSize = 12.sp)
+                Text("Already have an account?", color = Color.Black, fontSize = 12.sp)
                 Text(
-                    " Register",
+                    " Login",
                     color = Blue,
                     fontSize = 12.sp,
                     modifier = Modifier.clickable {
                         navigateToOtherScreens(
                             navController = navController,
-                            Routes.RegisterScreen.route
+                            Routes.LoginScreen.route
                         )
                     })
 
             }
             Spacer(modifier = Modifier.height(32.dp))
             PWeatherButton(
-                text = "Login",
+                text = "Register",
                 textColor = Color.White,
                 buttonColor = ButtonDefaults.buttonColors(Blue),
                 modifier = Modifier
@@ -210,11 +232,17 @@ fun LoginScreenContent(
                     .padding(top = 16.dp, start = 16.dp, end = 16.dp, bottom = 16.dp)
             ) {
                 if (uiStates.userName.isEmpty()) {
-                    userViewModel.userNameEmpty()
+                    viewModel.userNameEmpty()
                 } else if (uiStates.password.isEmpty()) {
-                    userViewModel.passwordEmpty()
+                    viewModel.passwordEmpty()
+                } else if (uiStates.password.length < 5) {
+                    viewModel.passwordLengthShort()
+                } else if (uiStates.confirmPassword.isEmpty()) {
+                    viewModel.confirmPasswordEmpty()
+                } else if (uiStates.password != uiStates.confirmPassword) {
+                    viewModel.passCPassNotSame()
                 } else {
-                    userViewModel.login(uiStates.userName, uiStates.password)
+                    viewModel.checkUserNameExist(uiStates.userName, uiStates.password)
                 }
             }
         }
@@ -222,4 +250,5 @@ fun LoginScreenContent(
 }
 
 //functions
+
 

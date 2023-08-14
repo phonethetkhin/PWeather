@@ -20,9 +20,14 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
@@ -135,12 +140,16 @@ fun RowScope.PWeatherUserInputTrailing(
 @Composable
 fun ColumnScope.PWeatherUserInput(
     placeHolder: String,
-    cityNameEmpty: Boolean,
+    value: String,
+    valueEmpty: Boolean = false,
+    userNameNotExist: Boolean? = false,
+    onValueChange: (String) -> Unit,
     modifier: Modifier = Modifier
 ) {
     TextField(
-        value = "",
-        onValueChange = { },
+        value = value,
+        keyboardOptions = KeyboardOptions(imeAction = ImeAction.Next),
+        onValueChange = onValueChange,
         modifier = modifier,
         colors = TextFieldDefaults.textFieldColors(
             containerColor = Color.White,
@@ -150,30 +159,60 @@ fun ColumnScope.PWeatherUserInput(
             cursorColor = Color.Black
         ),
         shape = RoundedCornerShape(32.dp),
-
-        textStyle = LocalTextStyle.current.copy(fontSize = 16.sp),
+        textStyle = LocalTextStyle.current.copy(
+            fontSize = 16.sp,
+            color = Color.Black,
+            fontWeight = FontWeight.Bold,
+        ),
         placeholder = {
             Text(
                 placeHolder,
-                color = Color.Black,
                 fontSize = 16.sp,
-                fontWeight = FontWeight.Bold,
-                modifier = Modifier.padding(start = 8.dp)
             )
-        }
-    )
+        },
+        supportingText = {
+            if (valueEmpty) {
+                Text(
+                    text = "$placeHolder must not be empty!!!",
+                    fontSize = 12.sp,
+                    color = Color.Red,
+                    modifier = Modifier.fillMaxWidth()
+                )
+            } else if (userNameNotExist != null && userNameNotExist == false) {
+                Text(
+                    text = "This username already taken!!!",
+                    fontSize = 12.sp,
+                    color = Color.Red,
+                    modifier = Modifier.fillMaxWidth()
+                )
+            }
+        },
+        trailingIcon = {
+            if (valueEmpty) {
+                Icon(Icons.Filled.Error, "error", tint = MaterialTheme.colorScheme.error)
+            }
+        },
+
+        )
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ColumnScope.PWeatherUserInputTrailing(
     placeHolder: String,
+    value: String,
+    valueEmpty: Boolean = false,
+    passwordLengthShort: Boolean = false,
+    passCPassNotSame: Boolean = false,
     modifier: Modifier = Modifier,
+    onValueChange: (String) -> Unit,
 ) {
+    var showPassword by remember { mutableStateOf(false) }
     TextField(
-        value = "",
-        onValueChange = { },
+        value = value,
+        onValueChange = onValueChange,
         modifier = modifier,
+
         colors = TextFieldDefaults.textFieldColors(
             containerColor = Color.White,
 
@@ -183,32 +222,59 @@ fun ColumnScope.PWeatherUserInputTrailing(
         ),
         shape = RoundedCornerShape(32.dp),
 
-        textStyle = LocalTextStyle.current.copy(fontSize = 16.sp),
-        visualTransformation = if (true) VisualTransformation.None else PasswordVisualTransformation(),
-        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
+        textStyle = LocalTextStyle.current.copy(
+            fontSize = 16.sp,
+            color = Color.Black,
+            fontWeight = FontWeight.Bold,
+        ),
+        visualTransformation = if (showPassword) VisualTransformation.None else PasswordVisualTransformation(),
+        keyboardOptions = KeyboardOptions(
+            keyboardType = KeyboardType.Password,
+            imeAction = ImeAction.Next
+        ),
         trailingIcon = {
-            val image = if (true)
+            val image = if (showPassword)
                 Icons.Filled.Visibility
             else Icons.Filled.VisibilityOff
 
             // Localized description for accessibility services
-            val description = if (true) "Hide password" else "Show password"
+            val description = if (showPassword) "Hide password" else "Show password"
 
             // Toggle button to hide or display password
-            IconButton(onClick = { }) {
+            IconButton(onClick = { showPassword = !showPassword }) {
                 Icon(imageVector = image, description)
+            }
+        },
+        supportingText = {
+            if (valueEmpty) {
+                Text(
+                    text = "$placeHolder must not be empty!!!",
+                    fontSize = 12.sp,
+                    color = Color.Red,
+                    modifier = Modifier.fillMaxWidth()
+                )
+            } else if (passwordLengthShort) {
+                Text(
+                    text = "Password must be at least 6 characters",
+                    fontSize = 12.sp,
+                    color = Color.Red,
+                    modifier = Modifier.fillMaxWidth()
+                )
+            } else if (passCPassNotSame) {
+                Text(
+                    text = "Password and Confirm Password not same",
+                    fontSize = 12.sp,
+                    color = Color.Red,
+                    modifier = Modifier.fillMaxWidth()
+                )
             }
         },
         placeholder = {
             Text(
                 text = placeHolder,
-                color = Color.Black,
                 fontSize = 16.sp,
-                fontWeight = FontWeight.Bold,
-                modifier = Modifier.padding(start = 8.dp)
             )
         },
-    )
 
-    // TODO: Replace true with actual value
+        )
 }
