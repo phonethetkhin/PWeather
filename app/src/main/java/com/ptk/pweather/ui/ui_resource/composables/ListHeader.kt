@@ -13,25 +13,34 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.ptk.pweather.ui.ui_resource.theme.DarkBlue
+import ir.kaaveh.sdpcompose.sdp
 
 @Composable
 fun ListHeader(titleName: String) {
     Card(
         colors = CardDefaults.cardColors(
             containerColor = DarkBlue,
-        ), modifier = Modifier.padding(start = 16.dp, end = 16.dp),
-        shape = RoundedCornerShape(16.dp)
+        ), modifier = Modifier.padding(start = 16.sdp, end = 16.sdp),
+        shape = RoundedCornerShape(16.sdp)
     ) {
         Row(
             Modifier
                 .fillMaxWidth()
-                .padding(12.dp),
+                .padding(12.sdp),
             verticalAlignment = Alignment.CenterVertically
         ) {
 
-            ListItemText(titleName, modifier = Modifier.weight(1F))
-            ListItemText("Country", modifier = Modifier.weight(1F))
-            Spacer(modifier = Modifier.width(24.dp))
+            ListItemText(
+                titleName, modifier = Modifier
+                    .weight(1F)
+                    .padding(start = 8.dp, end = 8.dp)
+            )
+            ListItemText(
+                "Country", modifier = Modifier
+                    .weight(1F)
+                    .padding(start = 8.dp, end = 8.dp)
+            )
+            Spacer(modifier = Modifier.width(24.sdp))
         }
     }
 }

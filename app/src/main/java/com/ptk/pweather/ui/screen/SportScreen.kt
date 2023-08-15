@@ -14,7 +14,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -42,7 +41,6 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
@@ -85,7 +83,7 @@ fun SportScreen(
                         "Search Tournament by City",
                         color = Color.Black,
                         fontWeight = FontWeight.Bold,
-                        fontSize = 20.ssp
+                        fontSize = 16.ssp
                     )
                 },
                 navigationIcon = {
@@ -93,7 +91,8 @@ fun SportScreen(
                         Icon(
                             imageVector = Icons.Default.ArrowBack,
                             contentDescription = null,
-                            tint = Color.Black
+                            tint = Color.Black,
+                            modifier = Modifier.size(24.sdp)
                         )
                     }
                 },
@@ -179,8 +178,7 @@ fun SportScreenContent(
                 Spacer(modifier = Modifier.width(16.sdp))
                 PWeatherButton(
                     modifier = Modifier
-                        .padding(bottom = 16.sdp)
-                        .height(55.sdp),
+                        .padding(bottom = 8.sdp),
                     text = "Search",
                     textColor = Color.White,
                     buttonColor = ButtonDefaults.buttonColors(Blue)
@@ -207,7 +205,7 @@ fun SportScreenContent(
 
                     Text(
                         "Football",
-                        fontSize = 20.ssp,
+                        fontSize = 16.ssp,
                         color = Color.Black,
                         fontWeight = FontWeight.Bold,
                         textDecoration = TextDecoration.Underline,
@@ -228,7 +226,7 @@ fun SportScreenContent(
                     Row(modifier = Modifier.fillMaxWidth()) {
                         Text(
                             "Football",
-                            fontSize = 20.ssp,
+                            fontSize = 16.ssp,
                             color = Color.Black,
                             fontWeight = FontWeight.Bold,
                             textDecoration = TextDecoration.Underline,
@@ -238,7 +236,7 @@ fun SportScreenContent(
                         )
                         Text(
                             "(There is no relevant data!)",
-                            fontSize = 20.ssp,
+                            fontSize = 16.ssp,
                             color = Color.Red,
                             fontWeight = FontWeight.Bold,
                             modifier = Modifier
@@ -253,7 +251,7 @@ fun SportScreenContent(
                 item {
                     Text(
                         "Cricket",
-                        fontSize = 20.ssp,
+                        fontSize = 16.ssp,
                         color = Color.Black,
                         fontWeight = FontWeight.Bold,
                         textDecoration = TextDecoration.Underline,
@@ -274,7 +272,7 @@ fun SportScreenContent(
                     Row(modifier = Modifier.fillMaxWidth()) {
                         Text(
                             "Cricket",
-                            fontSize = 20.ssp,
+                            fontSize = 16.ssp,
                             color = Color.Black,
                             fontWeight = FontWeight.Bold,
                             textDecoration = TextDecoration.Underline,
@@ -283,7 +281,7 @@ fun SportScreenContent(
                         )
                         Text(
                             "(There is no relevant data!)",
-                            fontSize = 20.ssp,
+                            fontSize = 16.ssp,
                             color = Color.Red,
                             fontWeight = FontWeight.Bold,
                             modifier = Modifier
@@ -297,7 +295,7 @@ fun SportScreenContent(
                 item {
                     Text(
                         "Golf",
-                        fontSize = 20.ssp,
+                        fontSize = 16.ssp,
                         color = Color.Black,
                         fontWeight = FontWeight.Bold,
                         textDecoration = TextDecoration.Underline,
@@ -320,7 +318,7 @@ fun SportScreenContent(
                     Row(modifier = Modifier.fillMaxWidth()) {
                         Text(
                             "Golf",
-                            fontSize = 20.ssp,
+                            fontSize = 16.ssp,
                             color = Color.Black,
                             fontWeight = FontWeight.Bold,
                             textDecoration = TextDecoration.Underline,
@@ -331,7 +329,7 @@ fun SportScreenContent(
                         Spacer(modifier = Modifier.width(26.sdp))
                         Text(
                             "(There is no relevant data!)",
-                            fontSize = 20.ssp,
+                            fontSize = 16.ssp,
                             color = Color.Red,
                             fontWeight = FontWeight.Bold,
                             modifier = Modifier.padding(top = 16.sdp, bottom = 16.sdp)
@@ -359,13 +357,15 @@ fun SportListItem(item: SportResponseItem, sportViewModel: SportViewModel) {
             verticalAlignment = Alignment.CenterVertically
         ) {
 
-            ListItemText("${item.tournament}", modifier = Modifier.weight(1F))
-            ListItemText("${item.country}", modifier = Modifier.weight(1F))
+            ListItemText("${item.tournament}", modifier = Modifier.weight(1F).padding(start = 8.dp, end = 8.dp))
+            ListItemText("${item.country}", modifier = Modifier.weight(1F).padding(start = 8.dp, end = 8.dp))
             Icon(
                 painter = painterResource(id = R.drawable.baseline_info_24),
                 contentDescription = "InfoIconListItem",
                 tint = Color.White,
-                modifier = Modifier.clickable { sportViewModel.showDetailDialog(true, item) }
+                modifier = Modifier
+                    .size(24.sdp)
+                    .clickable { sportViewModel.showDetailDialog(true, item) }
 
             )
         }

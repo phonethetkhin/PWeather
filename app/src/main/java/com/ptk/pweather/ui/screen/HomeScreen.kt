@@ -76,7 +76,7 @@ fun HomeScreen(
                         "Home",
                         color = Color.White,
                         fontWeight = FontWeight.Bold,
-                        fontSize = 20.ssp,
+                        fontSize = 14.ssp,
                         modifier = Modifier
                             .fillMaxWidth()
                             .padding(end = 32.sdp),
@@ -87,18 +87,16 @@ fun HomeScreen(
                     IconButton(onClick = {
                         userViewModel.showAlertDialog(true)
 
-                    }) {
+                    }, modifier = Modifier.padding(start = 8.sdp)) {
                         Icon(
                             imageVector = Icons.Filled.Logout,
                             contentDescription = null,
                             tint = Color.White,
-                            modifier = Modifier
-                                .size(128.dp)
-                                .padding(start = 16.sdp)
+                            modifier = Modifier.size(24.sdp)
                         )
                     }
                 }
-            )
+                )
         }
     ) {
         HomeScreenContent(navController, it.calculateTopPadding().value)

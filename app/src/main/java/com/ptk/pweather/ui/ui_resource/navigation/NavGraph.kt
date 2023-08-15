@@ -17,7 +17,7 @@ import com.ptk.pweather.ui.screen.SportScreen
 fun NavGraph(
     navController: NavHostController,
 ) {
-    NavHost(navController = navController, startDestination = Routes.LoginScreen.route) {
+    NavHost(navController = navController, startDestination = Routes.HomeScreen.route) {
         composable(route = Routes.SplashScreen.route) {
             SplashScreen(navController)
         }

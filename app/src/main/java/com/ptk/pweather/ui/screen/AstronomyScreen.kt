@@ -89,7 +89,7 @@ fun AstronomyScreen(
                 title = {
                     Text(
                         "Astronomy", color = Color.Black, fontWeight = FontWeight.Bold,
-                        fontSize = 20.ssp
+                        fontSize = 16.ssp
                     )
                 },
                 navigationIcon = {
@@ -97,7 +97,8 @@ fun AstronomyScreen(
                         Icon(
                             imageVector = Icons.Default.ArrowBack,
                             contentDescription = null,
-                            tint = Color.Black
+                            tint = Color.Black,
+                            modifier = Modifier.size(24.sdp)
                         )
                     }
                 },
@@ -187,7 +188,6 @@ fun AstronomyScreenContent(
         PWeatherButton(
             modifier = Modifier
                 .fillMaxWidth()
-                .height(55.sdp)
                 .padding(start = 16.sdp, end = 16.sdp),
             text = "Search",
             textColor = Color.White,

@@ -40,7 +40,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
@@ -79,7 +78,7 @@ fun SearchScreen(
                 title = {
                     Text(
                         "Search City", color = Color.Black, fontWeight = FontWeight.Bold,
-                        fontSize = 20.ssp
+                        fontSize = 16.ssp
                     )
                 },
                 navigationIcon = {
@@ -87,7 +86,8 @@ fun SearchScreen(
                         Icon(
                             imageVector = Icons.Default.ArrowBack,
                             contentDescription = null,
-                            tint = Color.Black
+                            tint = Color.Black,
+                            modifier = Modifier.size(24.sdp)
                         )
                     }
                 },
@@ -172,12 +172,10 @@ fun SearchScreenContent(
                 )
                 Spacer(modifier = Modifier.width(16.sdp))
                 PWeatherButton(
-                    modifier = Modifier
-                        .padding(bottom = 16.sdp)
-                        .height(55.sdp),
                     text = "Search",
                     textColor = Color.White,
-                    buttonColor = ButtonDefaults.buttonColors(Blue)
+                    buttonColor = ButtonDefaults.buttonColors(Blue),
+                    modifier = Modifier.padding(bottom = 8.sdp)
                 ) {
                     if (uiStates.cityName.isNotEmpty()) {
                         searchViewModel.getSearchList(uiStates.cityName)
@@ -238,7 +236,9 @@ fun SearchListItem(searchItem: SearchResponseModel, searchViewModel: SearchViewM
                 painter = painterResource(id = R.drawable.baseline_info_24),
                 contentDescription = "InfoIconListItem",
                 tint = Color.White,
-                modifier = Modifier.clickable { searchViewModel.showDetailDialog(true, searchItem) }
+                modifier = Modifier
+                    .size(24.sdp)
+                    .clickable { searchViewModel.showDetailDialog(true, searchItem) }
             )
         }
     }

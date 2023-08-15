@@ -45,7 +45,7 @@ fun GoogleSignInButton(
     Surface(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(start = 16.sdp, end = 16.sdp)
+            .padding(start = 12.sdp, end = 12.sdp)
             .clickable(
                 enabled = !isLoading,
                 onClick = onClick
@@ -57,10 +57,10 @@ fun GoogleSignInButton(
         Row(
             modifier = Modifier
                 .padding(
-                    start = 12.sdp,
-                    end = 16.sdp,
-                    top = 12.sdp,
-                    bottom = 12.sdp
+                    start = 10.sdp,
+                    end = 10.sdp,
+                    top = 10.sdp,
+                    bottom = 10.sdp
                 ),
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.Center,

@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
@@ -108,17 +109,25 @@ fun RowScope.PWeatherUserInputTrailing(
         ),
         shape = RoundedCornerShape(32.dp),
 
-        textStyle = LocalTextStyle.current.copy(fontSize = 16.ssp),
+        textStyle = LocalTextStyle.current.copy(
+            fontSize = 12.ssp,
+            color = Color.Black,
+            fontWeight = FontWeight.Bold
+        ),
         trailingIcon = {
             IconButton(onClick = dateClicked) {
-                Icon(imageVector = Icons.Filled.CalendarMonth, contentDescription = "DateIcon")
+                Icon(
+                    imageVector = Icons.Filled.CalendarMonth,
+                    contentDescription = "DateIcon",
+                    modifier = Modifier.size(24.sdp)
+                )
             }
         },
         keyboardOptions = KeyboardOptions(),
         placeholder = {
             Text(
                 text = "Date",
-                fontSize = 14.ssp,
+                fontSize = 12.ssp,
                 modifier = Modifier.padding(start = 8.dp)
             )
         },
@@ -243,7 +252,12 @@ fun ColumnScope.PWeatherUserInputTrailing(
 
             // Toggle button to hide or display password
             IconButton(onClick = { showPassword = !showPassword }) {
-                Icon(imageVector = image, description)
+                Icon(
+                    imageVector = image,
+                    description,
+                    modifier = Modifier
+                        .size(32.sdp)
+                )
             }
         },
         supportingText = {

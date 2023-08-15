@@ -13,6 +13,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.safeContentPadding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
@@ -80,7 +81,7 @@ fun LoginScreen(
 
             // render the animation
             LottieAnimation(
-                modifier = Modifier.size(240.sdp),
+                modifier = Modifier.size(150.sdp),
                 composition = composition,
                 iterations = LottieConstants.IterateForever // animate forever
 
@@ -101,7 +102,7 @@ fun LoginScreen(
 
             // render the animation
             LottieAnimation(
-                modifier = Modifier.size(240.sdp),
+                modifier = Modifier.size(150.sdp),
                 composition = composition,
 
                 )
@@ -125,7 +126,7 @@ fun LoginScreen(
 
             // render the animation
             LottieAnimation(
-                modifier = Modifier.size(size = 240.sdp),
+                modifier = Modifier.size(size = 150.sdp),
                 composition = composition,
             )
             if (progress == 1.0f) {
@@ -134,7 +135,7 @@ fun LoginScreen(
 
             // render the animation
 
-            Text("${uiStates.errorMessage}", color = Color.Red)
+            Text("${uiStates.errorMessage}", color = Color.Red, fontSize = 16.ssp,)
         }
     } else if (uiStates.ggSignInErrMsg.isNotEmpty()) {
         Column(
@@ -151,7 +152,7 @@ fun LoginScreen(
 
             // render the animation
             LottieAnimation(
-                modifier = Modifier.size(size = 240.sdp),
+                modifier = Modifier.size(size = 150.sdp),
                 composition = composition,
             )
             if (progress == 1.0f) {
@@ -160,7 +161,7 @@ fun LoginScreen(
 
             // render the animation
 
-            Text("${uiStates.ggSignInErrMsg}", color = Color.Red)
+            Text("${uiStates.ggSignInErrMsg}", color = Color.Red, fontSize = 16.ssp,)
         }
     } else if (uiStates.ggSignInSuccess) {
         Column(
@@ -177,7 +178,7 @@ fun LoginScreen(
 
             // render the animation
             LottieAnimation(
-                modifier = Modifier.size(240.sdp),
+                modifier = Modifier.size(150.sdp),
                 composition = composition,
 
                 )
@@ -259,8 +260,7 @@ fun LoginScreenContent(
                 uiStates.passwordLengthShort,
                 false,
                 modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(start = 16.sdp, end = 16.sdp),
+                    .fillMaxWidth().padding(start = 16.sdp, end=16.sdp),
                 userViewModel::togglePassword
             )
             Row(
