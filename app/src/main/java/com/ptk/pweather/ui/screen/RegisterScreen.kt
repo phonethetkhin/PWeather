@@ -1,13 +1,6 @@
 package com.ptk.pweather.ui.screen
 
-import android.util.Log
-import androidx.compose.animation.core.animateFloat
-import androidx.compose.animation.core.infiniteRepeatable
-import androidx.compose.animation.core.keyframes
-import androidx.compose.animation.core.rememberInfiniteTransition
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -21,13 +14,8 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.CircularProgressIndicator
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -35,15 +23,8 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.rotate
-import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.unit.Dp
-import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
-import androidx.compose.ui.window.DialogProperties
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.airbnb.lottie.compose.LottieAnimation
@@ -112,7 +93,7 @@ fun RegisterScreen(
                 )
             if (progress == 1.0f) {
                 // Animation completes.
-                navigateToOtherScreens(navController, Routes.HomeScreen.route)
+                navigateToHome(navController)
             }
         }
     } else {
@@ -217,10 +198,7 @@ fun RegisterScreenContent(
                     color = Blue,
                     fontSize = 12.ssp,
                     modifier = Modifier.clickable {
-                        navigateToOtherScreens(
-                            navController = navController,
-                            Routes.LoginScreen.route
-                        )
+                        navigateToLoginScreen(navController)
                     })
 
             }
@@ -253,4 +231,25 @@ fun RegisterScreenContent(
 
 //functions
 
+fun navigateToLoginScreen(navController: NavController) {
+    navController.navigate(Routes.LoginScreen.route) {
+        navController.currentDestination?.let {
+            popUpTo(it.id) {
+                inclusive = true
+            }
+        }
+    }
+}
+
+fun navigateRegisterToHomeScreen(navController: NavController) {
+    navController.navigate(Routes.HomeScreen.route) {
+        navController.currentDestination?.let {
+            popUpTo(it.id) {
+                inclusive = true
+            }
+        }
+
+
+    }
+}
 

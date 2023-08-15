@@ -297,7 +297,7 @@ fun AlertDialogContent(
                     GoogleSignIn.getClient(context, GoogleSignInOptions.DEFAULT_SIGN_IN)
                         .signOut()
                     userViewModel.showAlertDialog(false)
-                    navigateToOtherScreens(navController = navController, Routes.LoginScreen.route)
+                    navigateToLoginScreen(navController)
                 }) {
                     Text(
                         "Logout",

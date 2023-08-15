@@ -47,7 +47,8 @@ fun SplashScreenContent(
     Column(
         modifier
             .fillMaxWidth()
-            .fillMaxHeight().background(LightGreen),
+            .fillMaxHeight()
+            .background(LightGreen),
 
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally

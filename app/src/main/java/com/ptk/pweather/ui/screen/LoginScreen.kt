@@ -13,7 +13,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.safeContentPadding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
@@ -29,8 +28,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.airbnb.lottie.compose.LottieAnimation
@@ -108,7 +105,7 @@ fun LoginScreen(
                 )
             if (progress == 1.0f) {
                 // Animation completes.
-                navigateToOtherScreens(navController, Routes.HomeScreen.route)
+                navigateToHome(navController)
             }
         }
     } else if (uiStates.errorMessage.isNotEmpty()) {
@@ -135,7 +132,7 @@ fun LoginScreen(
 
             // render the animation
 
-            Text("${uiStates.errorMessage}", color = Color.Red, fontSize = 16.ssp,)
+            Text("${uiStates.errorMessage}", color = Color.Red, fontSize = 16.ssp)
         }
     } else if (uiStates.ggSignInErrMsg.isNotEmpty()) {
         Column(
@@ -161,7 +158,7 @@ fun LoginScreen(
 
             // render the animation
 
-            Text("${uiStates.ggSignInErrMsg}", color = Color.Red, fontSize = 16.ssp,)
+            Text("${uiStates.ggSignInErrMsg}", color = Color.Red, fontSize = 16.ssp)
         }
     } else if (uiStates.ggSignInSuccess) {
         Column(
@@ -184,7 +181,7 @@ fun LoginScreen(
                 )
             if (progress == 1.0f) {
                 // Animation completes.
-                navigateToOtherScreens(navController, Routes.HomeScreen.route)
+                navigateToHome(navController)
             }
         }
     } else {
@@ -260,7 +257,8 @@ fun LoginScreenContent(
                 uiStates.passwordLengthShort,
                 false,
                 modifier = Modifier
-                    .fillMaxWidth().padding(start = 16.sdp, end=16.sdp),
+                    .fillMaxWidth()
+                    .padding(start = 16.sdp, end = 16.sdp),
                 userViewModel::togglePassword
             )
             Row(
@@ -275,10 +273,7 @@ fun LoginScreenContent(
                     color = Blue,
                     fontSize = 12.ssp,
                     modifier = Modifier.clickable {
-                        navigateToOtherScreens(
-                            navController = navController,
-                            Routes.RegisterScreen.route
-                        )
+                        navigateToRegister(navController)
                     })
 
             }
@@ -304,6 +299,27 @@ fun LoginScreenContent(
 }
 
 //functions
+
+fun navigateToHome(navController: NavController) {
+    navController.navigate(Routes.HomeScreen.route) {
+        navController.currentDestination?.let {
+            popUpTo(it.id) {
+                inclusive = true
+            }
+        }
+    }
+
+}
+
+fun navigateToRegister(navController: NavController) {
+    navController.navigate(Routes.RegisterScreen.route) {
+        navController.currentDestination?.let {
+            popUpTo(it.id) {
+                inclusive = true
+            }
+        }
+    }
+}
 
 
 
