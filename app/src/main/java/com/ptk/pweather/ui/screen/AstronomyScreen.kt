@@ -142,7 +142,7 @@ fun AstronomyScreen(
 
                 // render the animation
                 LottieAnimation(
-                    modifier = Modifier.size(size = 240.sdp),
+                    modifier = Modifier.size(size = 150.sdp),
                     composition = composition,
                 )
 

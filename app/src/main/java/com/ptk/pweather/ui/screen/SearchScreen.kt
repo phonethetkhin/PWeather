@@ -36,6 +36,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
@@ -131,7 +132,7 @@ fun SearchScreen(
 
                 // render the animation
                 LottieAnimation(
-                    modifier = Modifier.size(size = 240.sdp),
+                    modifier = Modifier.size(size = 150.sdp),
                     composition = composition,
                 )
 
@@ -221,7 +222,8 @@ fun SearchListItem(searchItem: SearchResponseModel, searchViewModel: SearchViewM
 
             ),
         shape = RoundedCornerShape(16.sdp),
-        modifier = Modifier.padding(start = 16.sdp, end = 16.sdp)
+        modifier = Modifier
+            .padding(start = 16.sdp, end = 16.sdp)
     ) {
         Row(
             Modifier
@@ -238,6 +240,7 @@ fun SearchListItem(searchItem: SearchResponseModel, searchViewModel: SearchViewM
                 tint = Color.White,
                 modifier = Modifier
                     .size(24.sdp)
+                    .clip(RoundedCornerShape(50.sdp))
                     .clickable { searchViewModel.showDetailDialog(true, searchItem) }
             )
         }
@@ -285,7 +288,9 @@ fun SearchFullScreenDialogContent(clickedItem: SearchResponseModel, onClose: () 
                     ) {
                     Card(
                         shape = RoundedCornerShape(50.sdp),
-                        modifier = Modifier.padding(8.sdp),
+                        modifier = Modifier
+                            .clip(RoundedCornerShape(50.sdp))
+                            .padding(8.sdp),
                         colors = CardDefaults.cardColors(
                             containerColor = Color.Red,
                         )

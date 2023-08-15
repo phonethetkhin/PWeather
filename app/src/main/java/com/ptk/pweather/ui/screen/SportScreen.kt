@@ -36,6 +36,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
@@ -136,7 +137,7 @@ fun SportScreen(
 
                 // render the animation
                 LottieAnimation(
-                    modifier = Modifier.size(size = 240.sdp),
+                    modifier = Modifier.size(size = 150.sdp),
                     composition = composition,
                 )
 
@@ -326,7 +327,7 @@ fun SportScreenContent(
                             modifier = Modifier
                                 .padding(16.sdp)
                         )
-                        Spacer(modifier = Modifier.width(26.sdp))
+                        Spacer(modifier = Modifier.width(24.sdp))
                         Text(
                             "(There is no relevant data!)",
                             fontSize = 16.ssp,
@@ -344,10 +345,13 @@ fun SportScreenContent(
 @Composable
 fun SportListItem(item: SportResponseItem, sportViewModel: SportViewModel) {
     Card(
+        shape = RoundedCornerShape(16.sdp),
+
         colors = CardDefaults.cardColors(
             containerColor = Blue,
 
-            ), modifier = Modifier.padding(start = 16.sdp, end = 16.sdp)
+            ), modifier = Modifier
+            .padding(start = 16.sdp, end = 16.sdp)
     ) {
         Row(
             Modifier
@@ -357,14 +361,25 @@ fun SportListItem(item: SportResponseItem, sportViewModel: SportViewModel) {
             verticalAlignment = Alignment.CenterVertically
         ) {
 
-            ListItemText("${item.tournament}", modifier = Modifier.weight(1F).padding(start = 8.dp, end = 8.dp))
-            ListItemText("${item.country}", modifier = Modifier.weight(1F).padding(start = 8.dp, end = 8.dp))
+            ListItemText(
+                "${item.tournament}",
+                modifier = Modifier
+                    .weight(1F)
+                    .padding(start = 8.dp, end = 8.dp)
+            )
+            ListItemText(
+                "${item.country}",
+                modifier = Modifier
+                    .weight(1F)
+                    .padding(start = 8.dp, end = 8.dp)
+            )
             Icon(
                 painter = painterResource(id = R.drawable.baseline_info_24),
                 contentDescription = "InfoIconListItem",
                 tint = Color.White,
                 modifier = Modifier
                     .size(24.sdp)
+                    .clip(RoundedCornerShape(50.sdp))
                     .clickable { sportViewModel.showDetailDialog(true, item) }
 
             )
@@ -413,7 +428,9 @@ fun SportFullScreenDialogContent(clickedItem: SportResponseItem, onClose: () -> 
                     ) {
                     Card(
                         shape = RoundedCornerShape(50.sdp),
-                        modifier = Modifier.padding(8.sdp),
+                        modifier = Modifier
+                            .clip(RoundedCornerShape(50.sdp))
+                            .padding(8.sdp),
                         colors = CardDefaults.cardColors(
                             containerColor = Color.Red,
                         )

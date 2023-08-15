@@ -4,6 +4,7 @@ import android.content.res.Configuration
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -18,6 +19,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Logout
 import androidx.compose.material.icons.filled.Warning
+import androidx.compose.material.ripple.rememberRipple
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -31,8 +33,10 @@ import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.layout.ContentScale
@@ -79,7 +83,7 @@ fun HomeScreen(
                         fontSize = 14.ssp,
                         modifier = Modifier
                             .fillMaxWidth()
-                            .padding(end = 32.sdp),
+                            .padding(end = 50.sdp),
                         textAlign = TextAlign.Center
                     )
                 },
@@ -96,7 +100,7 @@ fun HomeScreen(
                         )
                     }
                 }
-                )
+            )
         }
     ) {
         HomeScreenContent(navController, it.calculateTopPadding().value)
@@ -173,10 +177,14 @@ fun HomeCardItem(
         modifier = if (landscape)
             Modifier
                 .background(Blue, RoundedCornerShape(32.sdp))
-                .clickable(onClick = func)
+                .clip(RoundedCornerShape(32.dp))
+                .clickable(onClick = func
+                )
+
         else Modifier
             .fillMaxWidth()
             .background(Blue, RoundedCornerShape(32.sdp))
+            .clip(RoundedCornerShape(32.dp))
             .clickable(onClick = func)
     ) {
         Column(
